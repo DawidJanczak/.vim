@@ -73,10 +73,6 @@ set laststatus=2
 " Line numbers relative to current line
 set relativenumber
 
-" Create undo file during file edition so that it is possible to undo actions even after reopening the file
-" DISABLED
-set undofile
-
 " Map leader key to ','
 let mapleader = ","
 
@@ -176,6 +172,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Mappings for inserting a blank line before/after current one without entering
+" insert mode.
+nnoremap <leader>o o<ESC>
+nnoremap <leader>O O<ESC>
+
 " ==================================================
 " ===== Plugins settings ===========================
 " ==================================================
@@ -257,3 +258,6 @@ endif
 " Not using NERDTree anymore
 "map <leader>r :NERDTreeFind<cr>
 
+" Create undo file during file edition so that it is possible to undo actions even after reopening the file
+" Annoying...
+" set undofile
