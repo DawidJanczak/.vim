@@ -144,6 +144,10 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+" Use double backslash to switch to the lastly edited file
+nnoremap \\ :b#<CR>
+inoremap \\ <ESC>:b#<CR>
+
 inoremap <leader>{ {<space>\|<space>}<ESC>hi
 
 " ==================================================
