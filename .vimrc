@@ -1,8 +1,5 @@
-" Colorscheme used
 colorscheme mustang
-
-" Sets font for GVim
-set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
+set formatoptions=cqt
 
 " Sets syntax highlighting
 syntax on
@@ -15,17 +12,62 @@ function! Bgrep(word)
 endfunction
 command! -nargs=1 Bgrep :call Bgrep(<f-args>)
 
+function MyTabLabel(n)
+	let buflist = tabpagebuflist(a:n)
+	let winnr = tabpagewinnr(a:n)
+	return fnamemodify(bufname(buflist[winnr - 1]), ":t")
+endfunction
+
+" Show only filename, not the full file path, in tab header
+function MyTabLine()
+	let s = ''
+
+	for i in range(tabpagenr('$'))
+		if i + 1 == tabpagenr()
+			let s .= '%#TabLineSel#'
+		else
+			let s .= '%#TabLine#'
+		endif
+
+		let s .= '%' . (i + 1) . 'T'
+
+		let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+	endfor
+
+	let s .= '%#TabLineFill#%T'
+
+	if tabpagenr('$') > 1
+		let s .= '%=%#TabLine#%999Xclose'
+	endif
+
+	return s
+endfunction
+
+function! SwitchSourceHeader()
+	if (expand("%:e") == "cpp")
+		find %:t:r.h
+	else
+		find %:t:r.cpp
+	endif
+endfunction
+
+nmap ,s :call SwitchSourceHeader()<CR>
+
 filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
 filetype indent on
 
-" Tabs mapped to 2 space characters
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
+set nocompatible
+
+"set modelines=0
+
+" Tabs mapped to 4 space characters
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+"set expandtab
 
 " Encoding
 set encoding=utf-8
@@ -73,6 +115,11 @@ set laststatus=2
 " Line numbers relative to current line
 set relativenumber
 
+" Show filename only in tabs
+set tabline=%!MyTabLine()
+
+" set undofile
+
 " Map leader key to ','
 let mapleader = ","
 
@@ -108,6 +155,10 @@ set hlsearch
 " jump to matching brace. This is great in visual mode - marks text inside the
 " brackets with Tab.
 nnoremap <leader><space> :noh<cr>
+" This mapping breaks ctrl-i combination. Disabled until figured out if it's
+" possible to map the two keys independently
+"nnoremap <tab> %
+"vnoremap <tab> %
 
 " ==================================================
 " ===== Wrapping ===================================
@@ -116,8 +167,12 @@ nnoremap <leader><space> :noh<cr>
 " Set wrap on width = 79 so that the text is automatically moved to the next
 " line
 set wrap
-set textwidth=79
-set formatoptions=qnr1
+"set textwidth=79
+"set formatoptions=cqt
+" nr1
+" Color column on given column number
+" DISABLED
+" set colorcolumn=85
 
 " ==================================================
 " ===== Misc key mappings ==========================
@@ -132,11 +187,9 @@ set formatoptions=qnr1
 
 nnoremap <up> <nop>
 nnoremap <down> <nop>
-nnoremap <left> <nop>
 nnoremap <right> <nop>
 inoremap <up> <nop>
 inoremap <down> <nop>
-inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
@@ -144,11 +197,19 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" Use double backslash to switch to the lastly edited file
+" Save on losing focus
+:au FocusLost * :w
+
+" Use backslash key twice to switch to previously edited buffer
 nnoremap \\ :b#<CR>
 inoremap \\ <ESC>:b#<CR>
 
-inoremap <leader>{ {<space>\|<space>}<ESC>hi
+" Mappings for easier tab navigating
+:nnoremap <S-h> gT
+:nnoremap <S-l> gt
+
+"inoremap { {<cr>}<ESC>O<tab>
+"inoremap <leader>{ {<space><space>}<ESC>hi
 
 " ==================================================
 " ===== Leader commands ============================
@@ -176,97 +237,46 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Mappings for inserting a blank line before/after current one without entering
-" insert mode.
+" Mappings for inserting a line before/after current one without going into
+" insert mode and without going to new line.
 nnoremap <leader>o o<ESC>
 nnoremap <leader>O O<ESC>
 
 " ==================================================
-" ===== Plugins settings ===========================
+" ===== Plugin settings ============================
 " ==================================================
 
 " Launch Ack with ,a
-let g:ackprg="C:\\strawberry\\perl\\site\\bin\\ack.bat -H --nocolor --nogroup --column"
-nnoremap <leader>a :Ack <cword> 
-
-" let Tlist_Ctags_Cmd="/home/janczak/software/ctags-5.8/ctags"
-let Tlist_Use_Right_Window=1
-nnoremap <leader>tt :TlistToggle<cr>
-set tags=tags;/
+let g:ackprg="/home/janczak/software/ack/ack -H --nocolor --nogroup --column"
+nnoremap <leader>a :Ack! <cword> 
+nnoremap <leader><S-a> :Ack! 
 
 " Leader g to search all open buffers
 nnoremap <leader>g :Bgrep 
+
+" Shortcut for tagbar plugin
+nnoremap <leader>tt :TagbarToggle<cr>
 
 " Options for buffergator:
 " open buffergator in the bottom
 let g:buffergator_viewport_split_policy="B"
 " set its height
-let g:buffergator_split_size=5
+let g:buffergator_split_size=15
 " sort buffers by extension and filepaths
 let g:buffergator_sort_regime="extension"
 
-" Set ctags executable path for tagbar.
-let g:tagbar_ctags_bin='D:\Ruby\ctags\ctags58\ctags.exe'
-" Set tagbar shortcut
-nnoremap <leader>tt :TagbarToggle<cr>
+" Auto save and auto reload sessions
+let g:session_autosave='yes'
+let g:session_autoload='yes'
 
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
 
-" Remember open buffers even after quitting vim
-:exec 'set viminfo=%,' . &viminfo
+" Set local working directory to current buffer file's directory
+autocmd BufEnter * lcd %:p:h
 
-if has("autocmd")
-  " Set local working directory to current buffer file's directory
-  " Vim gets confused when switching to buffergator window as it wants to find
-  " [[buffergator file. Hence the conditional statement.
-  autocmd BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
+" When firing vim move cursor from any plugin to the main window
+autocmd VimEnter * wincmd p
 
-  " Sets indentation for cpp files
-  autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
-
-  " Open last edited file when Vim is opened without any arguments
-  if argc() == 0
-    autocmd VimEnter * nested :bfirst
-  endif
-endif
-
-" ==================================================
-" ===== Disabled commands ==========================
-" ==================================================
-"
-" This section contains commands which are not used anymore, but might come in
-" handy in the future.
-" Description should contain reason as to why it is disabled in addition to
-" specyfying what the command does.
-
-" When firing Vim move cursor from any plugin to the main window
-" Not used as Vim is only opened with one window now
-" autocmd VimEnter * wincmd p
-
-" This mapping breaks ctrl-i combination. Disabled until figured out if it's
-" possible to map the two keys independently
-"nnoremap <tab> %
-"vnoremap <tab> %
-
-" Color column on given column number
-" DISABLED - ugly :)
-" set colorcolumn=85
-
-" Save on losing focus
-" Not really needed now
-" :au FocusLost * :w
-
-" Fire up NERDTree faster
-" Not using NERDTree anymore
-"let NERDTreeShowHidden=1
-"nnoremap <leader>nt :NERDTree<cr>
-
-" Find currently opened file in NERDTree faster
-" Not using NERDTree anymore
-"map <leader>r :NERDTreeFind<cr>
-
-" Create undo file during file edition so that it is possible to undo actions even after reopening the file
-" Annoying...
-" set undofile
+":exec 'set viminfo=%,' . &viminfo
