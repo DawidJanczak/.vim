@@ -1,11 +1,6 @@
-" Colorscheme used
-colorscheme mustang
-
-" Sets font for GVim
-set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
-
-" Sets syntax highlighting
-syntax on
+" ==================================================
+" ===== Functions ==================================
+" ==================================================
 
 " bgreps uses grep on open buffers only. Courtesy of hotchpotch on github
 function! Bgrep(word)
@@ -15,13 +10,70 @@ function! Bgrep(word)
 endfunction
 command! -nargs=1 Bgrep :call Bgrep(<f-args>)
 
+" Function used in MyTabLine that causes printing filename only
+function MyTabLabel(n)
+	let buflist = tabpagebuflist(a:n)
+	let winnr = tabpagewinnr(a:n)
+	return fnamemodify(bufname(buflist[winnr - 1]), ":t")
+endfunction
+
+" Show only filename, not the full file path, in tab header
+function MyTabLine()
+	let s = ''
+
+	for i in range(tabpagenr('$'))
+		if i + 1 == tabpagenr()
+			let s .= '%#TabLineSel#'
+		else
+			let s .= '%#TabLine#'
+		endif
+
+		let s .= '%' . (i + 1) . 'T'
+
+		let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+	endfor
+
+	let s .= '%#TabLineFill#%T'
+
+	if tabpagenr('$') > 1
+		let s .= '%=%#TabLine#%999Xclose'
+	endif
+
+	return s
+endfunction
+
+" Great small function to switch from header to cpp file and back
+function! SwitchSourceHeader()
+	if (expand("%:e") == "cpp")
+		find %:t:r.h
+	else
+		find %:t:r.cpp
+	endif
+endfunction
+
+" ==================================================
+" ===== General options ============================
+" ==================================================
+
+" Colorscheme used
+colorscheme mustang
+
+" Sets font for GVim
+set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
+
+" Sets syntax highlighting
+syntax on
+
+" Pathogen settings
 filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
-
 filetype indent on
 
-" Tabs mapped to 2 space characters
+" Disabing modelines (security)
+set nomodeline
+
+" Tabs mapped to 2 space characters (Ruby default)
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -42,11 +94,10 @@ set showmode
 " Show command that is being entered in the lower right
 set showcmd
 
-" Allow switching between buffers when there are changes made and buffers are
-" not saved
+" Allow switching between buffers when there are changes made and buffers are not saved
 set hidden
 
-" Show available commands when TAB is pressed
+" Show available commands when tab is pressed
 set wildmenu
 
 " Show the commands as a list of all available commands
@@ -73,6 +124,9 @@ set laststatus=2
 " Line numbers relative to current line
 set relativenumber
 
+" Show filename only in tabs
+set tabline=%!MyTabLine()
+
 " Map leader key to ','
 let mapleader = ","
 
@@ -80,7 +134,7 @@ let mapleader = ","
 " ===== Search/replace section =====================
 " ==================================================
 
-" Automatically add \v when searching so that regexp acts more like in PERL
+" Automatically add \v when searching so that regexp acts more like in perl
 nnoremap / /\v
 vnoremap / /\v
 
@@ -92,7 +146,7 @@ set ignorecase
 " - ignore case is off when at least one upper case letter is present in the word
 set smartcase
 
-" Setting gdefault causes automatic \g flag addition when replacing. This means that all occurences in the file will be replaced.
+" Setting gdefault causes automatic \g flag addition when replacing. this means that all occurences in the file will be replaced.
 set gdefault
 
 " Incremental search means the search will be performed and refined after every key input, not after hitting enter.
@@ -104,31 +158,20 @@ set showmatch
 " Highlights serach results
 set hlsearch
 
-" , + space can be used to clear search results. Tab is used instead of % to
-" jump to matching brace. This is great in visual mode - marks text inside the
-" brackets with Tab.
+" , + space can be used to clear search results.
 nnoremap <leader><space> :noh<cr>
 
-" ==================================================
-" ===== Wrapping ===================================
-" ==================================================
-
-" Set wrap on width = 79 so that the text is automatically moved to the next
-" line
+" Set wrap for longer lines
 set wrap
-set textwidth=79
-set formatoptions=qnr1
 
 " ==================================================
 " ===== Misc key mappings ==========================
 " ==================================================
 
 " Some additional mappings:
-" 1. Disable arrow keys
-" 2. j and k work on VISIBLE lines instead of actual lines (helpful when
-" sentence is wrapped)
-" 3. Disable F1 key
-" 4. Maping ; to : makes issuing commands faster.
+" 1. disable arrow keys
+" 2. j and k work on visible lines instead of actual lines (helpful when sentence is wrapped)
+" 3. disable f1 key
 
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -140,82 +183,86 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
+inoremap <f1> <esc>
+nnoremap <f1> <esc>
+vnoremap <f1> <esc>
 
-" Use double backslash to switch to the lastly edited file
-nnoremap \\ :b#<CR>
-inoremap \\ <ESC>:b#<CR>
+" Use backslash key twice to switch to previously edited buffer
+nnoremap \\ :b#<cr>
+inoremap \\ <esc>:b#<cr>
 
-inoremap <leader>{ {<space>\|<space>}<ESC>hi
+" Mappings for easier tab navigating
+nnoremap <s-h> gt
+nnoremap <s-l> gt
 
 " ==================================================
 " ===== Leader commands ============================
 " ==================================================
 
-" ,W removes all trailing spaces in a file
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" Leader w removes all trailing spaces in a file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 
 " Folding tags
-nnoremap <leader>ft Vatzf
+nnoremap <leader>ft vatzf
 
 " Open .vimrc in splitted window
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>ev <c-w><c-v><c-l>:e $myvimrc<cr>
 
 " Go from insert mode to normal mode with jj
-inoremap jj <ESC>
-inoremap <ESC> <nop>
+inoremap jj <esc>
+inoremap <esc> <nop>
 
 " Open a new vertically split window and move to it
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>w <c-w>v<c-w>l
 
-" Some mappings for switching active split window
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Mappings for switching active split window
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
-" Mappings for inserting a blank line before/after current one without entering
-" insert mode.
-nnoremap <leader>o o<ESC>
-nnoremap <leader>O O<ESC>
+" Mappings for inserting a line before/after current one without going into insert mode and without going to new line.
+nnoremap <leader>o o<esc>
+nnoremap <leader>o o<esc>
 
 " ==================================================
-" ===== Plugins settings ===========================
+" ===== Plugin settings ============================
 " ==================================================
 
-" Launch Ack with ,a
-let g:ackprg="C:\\strawberry\\perl\\site\\bin\\ack.bat -H --nocolor --nogroup --column"
-nnoremap <leader>a :Ack <cword> 
+" Launch ack on current word with ,a.
+" Launch ack without argument with ,A.
+let g:ackprg="/home/janczak/software/ack/ack -h --nocolor --nogroup --column"
+nnoremap <leader>a :ack! <cword>
+nnoremap <leader><s-a> :ack!
 
-" let Tlist_Ctags_Cmd="/home/janczak/software/ctags-5.8/ctags"
-let Tlist_Use_Right_Window=1
-nnoremap <leader>tt :TlistToggle<cr>
-set tags=tags;/
+" Leader s to switch between source/header files (c++)
+nmap ,s :call switchsourceheader()<cr>
 
 " Leader g to search all open buffers
-nnoremap <leader>g :Bgrep 
+nnoremap <leader>g :bgrep
+
+" Shortcut for tagbar plugin
+nnoremap <leader>tt :tagbartoggle<cr>
 
 " Options for buffergator:
-" open buffergator in the bottom
-let g:buffergator_viewport_split_policy="B"
-" set its height
-let g:buffergator_split_size=5
-" sort buffers by extension and filepaths
+" - open buffergator in the bottom
+" - set its height
+" - sort buffers by extension and filepaths
+let g:buffergator_viewport_split_policy="b"
+let g:buffergator_split_size=15
 let g:buffergator_sort_regime="extension"
 
-" Set ctags executable path for tagbar.
-let g:tagbar_ctags_bin='D:\Ruby\ctags\ctags58\ctags.exe'
-" Set tagbar shortcut
-nnoremap <leader>tt :TagbarToggle<cr>
+" Auto save and auto reload sessions
+let g:session_autosave='yes'
+let g:session_autoload='yes'
+
+" TagList settings
+let Tlist_Use_Right_Window=1
+nnoremap <leader>tt :TlistToggle<cr>
 
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
-
-" Remember open buffers even after quitting vim
-:exec 'set viminfo=%,' . &viminfo
 
 if has("autocmd")
   " Set local working directory to current buffer file's directory
@@ -225,11 +272,9 @@ if has("autocmd")
 
   " Sets indentation for cpp files
   autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
-
-  " Open last edited file when Vim is opened without any arguments
-  if argc() == 0
-    autocmd VimEnter * nested :bfirst
-  endif
+  
+  " Set local working directory to current buffer file's directory
+  autocmd bufenter * lcd %:p:h
 endif
 
 " ==================================================
