@@ -235,8 +235,8 @@ nnoremap <leader>o o<esc>
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
-nnoremap <leader>a :ack! <cword>
-nnoremap <leader><s-a> :ack!
+nnoremap <leader>a :Ack! <cword> 
+nnoremap <leader><s-a> :Ack! 
 
 " Leader s to switch between source/header files (c++)
 nmap ,s :call switchsourceheader()<cr>
