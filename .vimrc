@@ -11,36 +11,40 @@ endfunction
 command! -nargs=1 Bgrep :call Bgrep(<f-args>)
 
 " Function used in MyTabLine that causes printing filename only
-function MyTabLabel(n)
-	let buflist = tabpagebuflist(a:n)
-	let winnr = tabpagewinnr(a:n)
-	return fnamemodify(bufname(buflist[winnr - 1]), ":t")
-endfunction
+if !exists("*MyTabLabel")
+  function MyTabLabel(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    return fnamemodify(bufname(buflist[winnr - 1]), ":t")
+  endfunction
+endif
 
 " Show only filename, not the full file path, in tab header
-function MyTabLine()
-	let s = ''
+if !exists("*MyTabLine")
+  function MyTabLine()
+    let s = ''
 
-	for i in range(tabpagenr('$'))
-		if i + 1 == tabpagenr()
-			let s .= '%#TabLineSel#'
-		else
-			let s .= '%#TabLine#'
-		endif
+    for i in range(tabpagenr('$'))
+      if i + 1 == tabpagenr()
+        let s .= '%#TabLineSel#'
+      else
+        let s .= '%#TabLine#'
+      endif
 
-		let s .= '%' . (i + 1) . 'T'
+      let s .= '%' . (i + 1) . 'T'
 
-		let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-	endfor
+      let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+    endfor
 
-	let s .= '%#TabLineFill#%T'
+    let s .= '%#TabLineFill#%T'
 
-	if tabpagenr('$') > 1
-		let s .= '%=%#TabLine#%999Xclose'
-	endif
+    if tabpagenr('$') > 1
+      let s .= '%=%#TabLine#%999Xclose'
+    endif
 
-	return s
-endfunction
+    return s
+  endfunction
+endif
 
 " Great small function to switch from header to cpp file and back
 function! SwitchSourceHeader()
@@ -206,7 +210,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 nnoremap <leader>ft vatzf
 
 " Open .vimrc in splitted window
-nnoremap <leader>ev <c-w><c-v><c-l>:e $myvimrc<cr>
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
 
 " Go from insert mode to normal mode with jj
 inoremap jj <esc>
@@ -231,7 +235,6 @@ nnoremap <leader>o o<esc>
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
-let g:ackprg="/home/janczak/software/ack/ack -h --nocolor --nogroup --column"
 nnoremap <leader>a :ack! <cword>
 nnoremap <leader><s-a> :ack!
 
@@ -242,7 +245,7 @@ nmap ,s :call switchsourceheader()<cr>
 nnoremap <leader>g :bgrep
 
 " Shortcut for tagbar plugin
-nnoremap <leader>tt :tagbartoggle<cr>
+nnoremap <leader>tt :TagbarToggle<cr>
 
 " Options for buffergator:
 " - open buffergator in the bottom
@@ -256,10 +259,6 @@ let g:buffergator_sort_regime="extension"
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 
-" TagList settings
-let Tlist_Use_Right_Window=1
-nnoremap <leader>tt :TlistToggle<cr>
-
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
@@ -272,9 +271,13 @@ if has("autocmd")
 
   " Sets indentation for cpp files
   autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
   
   " Set local working directory to current buffer file's directory
   autocmd bufenter * lcd %:p:h
+
+  " Auto source .vimrc file when saved
+  autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
 " ==================================================
