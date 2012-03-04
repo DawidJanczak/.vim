@@ -259,6 +259,9 @@ let g:buffergator_sort_regime="extension"
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 
+" Open GUndo with <leader>u
+nnoremap <leader>u :GundoToggle<CR>
+
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
