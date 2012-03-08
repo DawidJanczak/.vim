@@ -281,7 +281,7 @@ if has("autocmd")
   autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
   
   " Set local working directory to current buffer file's directory
-  autocmd bufenter * lcd %:p:h
+  autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
 
   " Auto source .vimrc file when saved
   autocmd bufwritepost .vimrc source $MYVIMRC
