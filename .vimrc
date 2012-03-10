@@ -199,7 +199,7 @@ nnoremap \\ :b#<cr>
 inoremap \\ <esc>:b#<cr>
 
 " Mappings for easier tab navigating
-nnoremap <s-h> gt
+nnoremap <s-h> gT
 nnoremap <s-l> gt
 
 " ==================================================
