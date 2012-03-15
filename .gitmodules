@@ -34,3 +34,6 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/golden-ratio"]
+	path = bundle/golden-ratio
+	url = https://github.com/roman/golden-ratio.git
