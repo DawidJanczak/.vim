@@ -59,20 +59,20 @@ endfunction
 " ===== General options ============================
 " ==================================================
 
-" Colorscheme used
-colorscheme mustang
-
 " Sets font for GVim
 set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
-
-" Sets syntax highlighting
-syntax on
 
 " Pathogen settings
 filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 filetype indent on
+
+" Colorscheme used plus syntax highlighting
+syntax on
+set background=dark
+"colorscheme mustang
+colorscheme solarized
 
 " Disabing modelines (security)
 set nomodeline
