@@ -265,6 +265,9 @@ let g:session_autoload='yes'
 " Open GUndo with <leader>u
 nnoremap <leader>u :GundoToggle<CR>
 
+" Start Fuzzy search with <leader>f
+nnoremap <leader>f :FufCoverageFile<CR>
+
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
@@ -278,6 +281,7 @@ if has("autocmd")
   " Sets indentation for cpp files
   autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
   
   " Set local working directory to current buffer file's directory

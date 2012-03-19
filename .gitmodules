@@ -37,3 +37,9 @@
 [submodule "bundle/golden-ratio"]
 	path = bundle/golden-ratio
 	url = https://github.com/roman/golden-ratio.git
+[submodule "bundle/FuzzyFinder"]
+	path = bundle/FuzzyFinder
+	url = https://github.com/vim-scripts/FuzzyFinder.git
+[submodule "bundle/L9"]
+	path = bundle/L9
+	url = https://github.com/vim-scripts/L9
