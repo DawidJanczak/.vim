@@ -267,6 +267,7 @@ nnoremap <leader>u :GundoToggle<CR>
 
 " Start Fuzzy search with <leader>f
 nnoremap <leader>f :FufCoverageFile<CR>
+nnoremap <leader>fc :FufCoverageFileChange<CR>
 
 " ==================================================
 " ===== Auto commands ==============================

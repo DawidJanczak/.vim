@@ -1,5 +1,5 @@
 " ~/.vim/sessions/default.vim: Vim session script.
-" Created by session.vim 1.5 on 23 February 2012 at 13:49:22.
+" Created by session.vim 1.5 on 21 March 2012 at 08:34:30.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=
@@ -26,7 +26,7 @@ set shortmess=aoO
 badd +73 ruby/CodeJam/practice/eggdrop.rb
 badd +244 .vimrc
 silent! argdel *
-set lines=43 columns=207
+set lines=39 columns=278
 edit .vimrc
 set splitbelow splitright
 set nosplitbelow
@@ -43,7 +43,7 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 244 - ((20 * winheight(0) + 20) / 41)
+let s:l = 244 - ((16 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
