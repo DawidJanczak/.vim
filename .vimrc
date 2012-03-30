@@ -202,6 +202,9 @@ inoremap \\ <esc>:b#<cr>
 nnoremap <s-h> gT
 nnoremap <s-l> gt
 
+" Y to behave like D - yank till EOL
+nnoremap Y y$
+
 " ==================================================
 " ===== Leader commands ============================
 " ==================================================
