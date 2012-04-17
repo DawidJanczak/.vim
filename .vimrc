@@ -205,6 +205,15 @@ nnoremap <s-l> gt
 " Y to behave like D - yank till EOL
 nnoremap Y y$
 
+" w!! writes files with root privileges
+cmap w!! %!sudo tee > /dev/null %
+
+" Map :W to :w
+cmap W w
+
+" Map :Q to :q
+cmap Q q
+
 " ==================================================
 " ===== Leader commands ============================
 " ==================================================
