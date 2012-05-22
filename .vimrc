@@ -244,9 +244,13 @@ nnoremap <c-l> <c-w>l
 nnoremap <leader>o o<esc>
 nnoremap <leader>o o<esc>
 
+" Put ruby shebang in the beginning of the file
+nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^D
+
 " ==================================================
 " ===== Plugin settings ============================
 " ==================================================
+"
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
