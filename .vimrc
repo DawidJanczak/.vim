@@ -245,7 +245,7 @@ nnoremap <leader>a :Ack! <cword>
 nnoremap <leader><s-a> :Ack! 
 
 " Leader s to switch between source/header files (c++)
-nmap ,s :call switchsourceheader()<cr>
+nmap ,s :call SwitchSourceHeader()<cr>
 
 " Leader g to search all open buffers
 nnoremap <leader>g :bgrep
@@ -271,6 +271,8 @@ nnoremap <leader>u :GundoToggle<CR>
 " Start Fuzzy search with <leader>f
 nnoremap <leader>f :FufCoverageFile<CR>
 nnoremap <leader>fc :FufCoverageFileChange<CR>
+
+let g:syntastic_cpp_remove_include_errors = 1
 
 " ==================================================
 " ===== Auto commands ==============================
