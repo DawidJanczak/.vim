@@ -205,6 +205,15 @@ nnoremap <s-l> gt
 " Y to behave like D - yank till EOL
 nnoremap Y y$
 
+" w!! writes files with root privileges
+cmap w!! %!sudo tee > /dev/null %
+
+" Map :W to :w
+cmap W w
+
+" Map :Q to :q
+cmap Q q
+
 " ==================================================
 " ===== Leader commands ============================
 " ==================================================
@@ -235,9 +244,13 @@ nnoremap <c-l> <c-w>l
 nnoremap <leader>o o<esc>
 nnoremap <leader>o o<esc>
 
+" Put ruby shebang in the beginning of the file
+nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^D
+
 " ==================================================
 " ===== Plugin settings ============================
 " ==================================================
+"
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
