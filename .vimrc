@@ -245,7 +245,7 @@ nnoremap <leader>o o<esc>
 nnoremap <leader>o o<esc>
 
 " Put ruby shebang in the beginning of the file
-nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^D
+nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 
 " ==================================================
 " ===== Plugin settings ============================
