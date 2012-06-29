@@ -137,6 +137,10 @@ let mapleader = ","
 " Yanking and cutting to * registry
 set clipboard=unnamed
 
+" Save swap files elsewhere
+set backupdir=~/tmp//
+set directory=~/tmp//
+
 " ==================================================
 " ===== Search/replace section =====================
 " ==================================================
