@@ -278,6 +278,9 @@ let g:buffergator_viewport_split_policy="b"
 let g:buffergator_split_size=15
 let g:buffergator_sort_regime="extension"
 
+" Leader comma to align text with commas
+vnoremap <leader>, :Tab /,\zs/l0r1<CR>
+
 " Auto save and auto reload sessions
 let g:session_autosave='yes'
 let g:session_autoload='yes'
