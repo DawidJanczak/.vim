@@ -310,6 +310,7 @@ if has("autocmd")
   autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
   
   " Set local working directory to current buffer file's directory
   autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
