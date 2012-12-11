@@ -72,6 +72,8 @@ filetype indent on
 syntax on
 set background=dark
 "colorscheme mustang
+" Solarized theme with transparent terminal support.
+let g:solarized_termtrans=1
 colorscheme solarized
 
 " Disabing modelines (security)
