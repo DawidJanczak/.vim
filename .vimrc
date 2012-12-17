@@ -143,6 +143,10 @@ set clipboard=unnamed
 set backupdir=~/tmp//
 set directory=~/tmp//
 
+" Configure tags location
+set tags+=./tags,tags;
+set tags+=./gems.tags,gems.tags;
+
 " ==================================================
 " ===== Search/replace section =====================
 " ==================================================
