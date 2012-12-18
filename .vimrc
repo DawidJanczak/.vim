@@ -294,12 +294,6 @@ let g:session_autoload='yes'
 " Open GUndo with <leader>u
 nnoremap <leader>u :GundoToggle<CR>
 
-" Start Fuzzy search with <leader>f
-nnoremap <leader>f :FufCoverageFile<CR>
-nnoremap <leader>fc :FufCoverageFileChange<CR>
-
-let g:syntastic_cpp_remove_include_errors = 1
-
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
