@@ -181,14 +181,16 @@ nnoremap <leader><space> :noh<cr>
 " Set wrap for longer lines
 set wrap
 
+" Ignore some directories
+set wildignore+=*/tmp/*
+
 " ==================================================
 " ===== Misc key mappings ==========================
 " ==================================================
 
 " Some additional mappings:
-" 1. disable arrow keys
-" 2. j and k work on visible lines instead of actual lines (helpful when sentence is wrapped)
-" 3. disable f1 key
+" 1. j and k work on visible lines instead of actual lines (helpful when sentence is wrapped)
+" 2. disable f1 key
 
 nnoremap j gj
 nnoremap k gk
