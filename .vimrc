@@ -190,14 +190,6 @@ set wrap
 " 2. j and k work on visible lines instead of actual lines (helpful when sentence is wrapped)
 " 3. disable f1 key
 
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 inoremap <f1> <esc>
