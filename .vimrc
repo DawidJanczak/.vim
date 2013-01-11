@@ -298,13 +298,12 @@ if has("autocmd")
   " [[buffergator file. Hence the conditional statement.
   autocmd BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
 
-  " Sets indentation for cpp files
+  " Sets indentation for other files
   autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
   
   " Set local working directory to current buffer file's directory
   autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
