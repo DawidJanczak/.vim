@@ -216,7 +216,7 @@ cmap w!! %!sudo tee > /dev/null %
 cmap W w
 
 " Map :Q to :q
-cmap Q q
+map Q <Nop>
 
 " ==================================================
 " ===== Leader commands ============================
