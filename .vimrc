@@ -89,6 +89,7 @@ Bundle 'tpope/vim-bundler.git'
 Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'tpope/vim-ragtag.git'
+Bundle 'tpope/vim-sleuth'
 
 filetype plugin indent on
 
@@ -102,12 +103,6 @@ colorscheme solarized
 
 " Disabing modelines (security)
 set nomodeline
-
-" Tabs mapped to 2 space characters (Ruby default)
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
 
 " Encoding
 set encoding=utf-8
@@ -321,13 +316,6 @@ if has("autocmd")
   " Vim gets confused when switching to buffergator window as it wants to find
   " [[buffergator file. Hence the conditional statement.
   autocmd BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
-
-  " Sets indentation for other files
-  autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-  autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
   
   " Set local working directory to current buffer file's directory
   autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
@@ -335,42 +323,3 @@ if has("autocmd")
   " Auto source .vimrc file when saved
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
-
-" ==================================================
-" ===== Disabled commands ==========================
-" ==================================================
-"
-" This section contains commands which are not used anymore, but might come in
-" handy in the future.
-" Description should contain reason as to why it is disabled in addition to
-" specyfying what the command does.
-
-" When firing Vim move cursor from any plugin to the main window
-" Not used as Vim is only opened with one window now
-" autocmd VimEnter * wincmd p
-
-" This mapping breaks ctrl-i combination. Disabled until figured out if it's
-" possible to map the two keys independently
-"nnoremap <tab> %
-"vnoremap <tab> %
-
-" Color column on given column number
-" DISABLED - ugly :)
-" set colorcolumn=85
-
-" Save on losing focus
-" Not really needed now
-" :au FocusLost * :w
-
-" Fire up NERDTree faster
-" Not using NERDTree anymore
-"let NERDTreeShowHidden=1
-"nnoremap <leader>nt :NERDTree<cr>
-
-" Find currently opened file in NERDTree faster
-" Not using NERDTree anymore
-"map <leader>r :NERDTreeFind<cr>
-
-" Create undo file during file edition so that it is possible to undo actions even after reopening the file
-" Annoying...
-" set undofile
