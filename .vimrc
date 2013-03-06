@@ -62,11 +62,35 @@ endfunction
 " Sets font for GVim
 set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
 
-" Pathogen settings
+" Vundle settings and bundles
 filetype off
-call pathogen#runtime_append_all_bundles()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-pathogen.git'
+Bundle 'mileszs/ack.vim.git'
+Bundle 'jeetsukumaran/vim-buffergator.git'
+Bundle 'vim-scripts/IndexedSearch.git'
+Bundle 'scrooloose/nerdcommenter.git'
+Bundle 'majutsushi/tagbar.git'
+Bundle 'tpope/vim-surround.git'
+Bundle 'sjl/gundo.vim.git'
+Bundle 'tpope/vim-endwise.git'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'roman/golden-ratio.git'
+Bundle 'vim-scripts/L9'
+Bundle 'altercation/vim-colors-solarized.git'
+Bundle 'godlygeek/tabular.git'
+Bundle 'mikbe/rspec.vim.git'
+Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-bundler.git'
+Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'kien/ctrlp.vim.git'
+Bundle 'tpope/vim-ragtag.git'
+
 filetype plugin indent on
-filetype indent on
 
 " Colorscheme used plus syntax highlighting
 syntax on
