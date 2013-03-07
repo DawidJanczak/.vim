@@ -222,9 +222,8 @@ inoremap <f1> <esc>
 nnoremap <f1> <esc>
 vnoremap <f1> <esc>
 
-" Use backslash key twice to switch to previously edited buffer
-nnoremap \\ :b#<cr>
-inoremap \\ <esc>:b#<cr>
+" Use space to switch to previously edited buffer
+nnoremap <space> :b#<cr>
 
 " Mappings for easier tab navigating
 nnoremap <s-h> gT
