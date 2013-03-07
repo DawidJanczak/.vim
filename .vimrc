@@ -68,7 +68,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-pathogen.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'jeetsukumaran/vim-buffergator.git'
 Bundle 'vim-scripts/IndexedSearch.git'
