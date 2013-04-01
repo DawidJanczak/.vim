@@ -85,9 +85,10 @@ Bundle 'godlygeek/tabular.git'
 Bundle 'mikbe/rspec.vim.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-bundler.git'
-Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'DawidJanczak/vim-coffee-script.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'tpope/vim-ragtag.git'
+Bundle 'juvenn/mustache.vim.git'
 
 filetype plugin indent on
 
