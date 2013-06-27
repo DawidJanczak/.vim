@@ -89,6 +89,8 @@ Bundle 'DawidJanczak/vim-coffee-script.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'tpope/vim-ragtag.git'
 Bundle 'juvenn/mustache.vim.git'
+Bundle 'nanotech/jellybeans.vim.git'
+Bundle 'lepture/vim-jinja'
 
 filetype plugin indent on
 
@@ -235,8 +237,8 @@ nnoremap Y y$
 " w!! writes files with root privileges
 cmap w!! %!sudo tee > /dev/null %
 
-" Map :W to :w
-cmap W w
+" Save with :W
+command W update
 
 " Map :Q to :q
 map Q <Nop>
@@ -266,6 +268,7 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+nnoremap <C-tab> gT
 
 " Mappings for inserting a line before/after current one without going into insert mode and without going to new line.
 nnoremap <leader>o o<esc>
@@ -281,8 +284,8 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
-nnoremap <leader>a :Ack! <cword> 
-nnoremap <leader><s-a> :Ack! 
+nnoremap <leader>a :Ack! -k <cword> 
+nnoremap <leader><s-a> :Ack! -k
 
 " Leader s to switch between source/header files (c++)
 nmap ,s :call SwitchSourceHeader()<cr>
