@@ -91,6 +91,7 @@ Bundle 'tpope/vim-ragtag.git'
 Bundle 'juvenn/mustache.vim.git'
 Bundle 'nanotech/jellybeans.vim.git'
 Bundle 'lepture/vim-jinja'
+Bundle 'puppetlabs/puppet-syntax-vim'
 
 filetype plugin indent on
 
@@ -161,6 +162,7 @@ set tabline=%!MyTabLine()
 
 " Map leader key to ','
 let mapleader = ","
+nmap \ ,
 
 " Yanking and cutting to * registry
 set clipboard=unnamed
@@ -238,7 +240,7 @@ nnoremap Y y$
 cmap w!! %!sudo tee > /dev/null %
 
 " Save with :W
-command W update
+command! W update
 
 " Map :Q to :q
 map Q <Nop>
@@ -258,7 +260,6 @@ nnoremap <leader>ev :tabe $MYVIMRC<cr>
 
 " Go from insert mode to normal mode with jj
 inoremap jj <esc>
-inoremap <esc> <nop>
 
 " Open a new vertically split window and move to it
 nnoremap <leader>w <c-w>v<c-w>l
@@ -319,24 +320,32 @@ nnoremap <leader>u :GundoToggle<CR>
 " ==================================================
 
 if has("autocmd")
-  " Set local working directory to current buffer file's directory
-  " Vim gets confused when switching to buffergator window as it wants to find
-  " [[buffergator file. Hence the conditional statement.
-  autocmd BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
+  augroup custom
+    " Clear previous auto commands
+    autocmd!
 
-  " Sets indentation for other files
-  autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-  autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
-  
-  " Set local working directory to current buffer file's directory
-  autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
+    " Set local working directory to current buffer file's directory
+    " Vim gets confused when switching to buffergator window as it wants to find
+    " [[buffergator file. Hence the conditional statement.
+    autocmd BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
 
-  " Auto source .vimrc file when saved
-  autocmd bufwritepost .vimrc source $MYVIMRC
+    " Sets indentation for other files
+    autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
+    autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
+    
+    " Set local working directory to current buffer file's directory
+    autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
+
+    " Auto source .vimrc file when saved
+    autocmd bufwritepost .vimrc source $MYVIMRC
+
+    " Run go fmt on .go file save
+    autocmd bufwritepre *.go Fmt
+  augroup END
 endif
 
 " ==================================================
