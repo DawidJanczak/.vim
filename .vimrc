@@ -315,6 +315,9 @@ let g:session_autoload='yes'
 " Open GUndo with <leader>u
 nnoremap <leader>u :GundoToggle<CR>
 
+" Options for syntastic
+let g:syntastic_coffee_coffeelint_args="--csv -f /home/janczak/dotfiles/.coffeelint.json"
+
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
