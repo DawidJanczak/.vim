@@ -92,6 +92,7 @@ Bundle 'juvenn/mustache.vim.git'
 Bundle 'nanotech/jellybeans.vim.git'
 Bundle 'lepture/vim-jinja'
 Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'bling/vim-airline'
 
 filetype plugin indent on
 
