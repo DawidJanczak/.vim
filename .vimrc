@@ -157,6 +157,7 @@ set laststatus=2
 
 " Line numbers relative to current line
 set relativenumber
+set number
 
 " Show filename only in tabs
 set tabline=%!MyTabLine()
