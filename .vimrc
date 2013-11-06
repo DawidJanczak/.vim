@@ -46,15 +46,6 @@ if !exists("*MyTabLine")
   endfunction
 endif
 
-" Great small function to switch from header to cpp file and back
-function! SwitchSourceHeader()
-	if (expand("%:e") == "cpp")
-		find %:t:r.h
-	else
-		find %:t:r.cpp
-	endif
-endfunction
-
 " ==================================================
 " ===== General options ============================
 " ==================================================
@@ -287,7 +278,7 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
-nnoremap <leader>a :Ack! -k <cword> 
+nnoremap <leader>a :Ack! -k <cword>
 nnoremap <leader><s-a> :Ack! -k
 
 " Leader s to switch between source/header files (c++)
@@ -320,6 +311,10 @@ nnoremap <leader>u :GundoToggle<CR>
 " Options for syntastic
 let g:syntastic_coffee_coffeelint_args="--csv -f /home/janczak/dotfiles/.coffeelint.json"
 
+" Vim-Airline settings
+let g:airline_theme='bubblegum'
+let g:airline_section_c='%{getcwd()}/%t'
+
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
@@ -341,7 +336,7 @@ if has("autocmd")
     autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
-    
+
     " Set local working directory to current buffer file's directory
     autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
 
