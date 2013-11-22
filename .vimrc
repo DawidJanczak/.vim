@@ -278,8 +278,8 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 
 " Launch ack on current word with ,a.
 " Launch ack without argument with ,A.
-nnoremap <leader>a :Ack! -k <cword>
-nnoremap <leader><s-a> :Ack! -k
+nnoremap <leader>a :Ack! -k <cword><space>
+nnoremap <leader><s-a> :Ack! -k<space>
 
 " Leader s to switch between source/header files (c++)
 nmap ,s :call SwitchSourceHeader()<cr>
