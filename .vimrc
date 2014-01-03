@@ -76,7 +76,7 @@ Bundle 'godlygeek/tabular.git'
 Bundle 'mikbe/rspec.vim.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-bundler.git'
-Bundle 'DawidJanczak/vim-coffee-script.git'
+Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'tpope/vim-ragtag.git'
 Bundle 'juvenn/mustache.vim.git'
@@ -84,6 +84,7 @@ Bundle 'nanotech/jellybeans.vim.git'
 Bundle 'lepture/vim-jinja'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-repeat'
 
 filetype plugin indent on
 
