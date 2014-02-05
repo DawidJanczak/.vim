@@ -85,6 +85,7 @@ Bundle 'lepture/vim-jinja'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-repeat'
+Bundle 'suan/vim-instant-markdown'
 
 filetype plugin indent on
 
