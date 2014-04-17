@@ -333,7 +333,7 @@ if has("autocmd")
 
     " Sets indentation for other files
     autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-    autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
@@ -347,6 +347,9 @@ if has("autocmd")
 
     " Run go fmt on .go file save
     autocmd bufwritepre *.go Fmt
+
+    " Enable wrap and linebreak in txt files
+    autocmd BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
   augroup END
 endif
 
