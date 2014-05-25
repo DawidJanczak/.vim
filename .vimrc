@@ -2,14 +2,6 @@
 " ===== Functions ==================================
 " ==================================================
 
-" bgreps uses grep on open buffers only. Courtesy of hotchpotch on github
-function! Bgrep(word)
-    cexpr '' " quickfix
-    silent exec ':bufdo | try | vimgrepadd ' . a:word . ' % | catch | endtry'
-    silent cwin
-endfunction
-command! -nargs=1 Bgrep :call Bgrep(<f-args>)
-
 " Function used in MyTabLine that causes printing filename only
 if !exists("*MyTabLabel")
   function MyTabLabel(n)
@@ -337,6 +329,7 @@ if has("autocmd")
     autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
+    autocmd FileType python setlocal ts=2 sts=2 sw=2 expandtab
 
     " Set local working directory to current buffer file's directory
     autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
