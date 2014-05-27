@@ -76,6 +76,7 @@ Plugin 'puppetlabs/puppet-syntax-vim'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-repeat'
 Plugin 'suan/vim-instant-markdown'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -315,33 +316,35 @@ let g:airline_section_c='%{getcwd()}/%t'
 if has("autocmd")
   augroup custom
     " Clear previous auto commands
-    autocmd!
+    au!
 
     " Set local working directory to current buffer file's directory
     " Vim gets confused when switching to buffergator window as it wants to find
     " [[buffergator file. Hence the conditional statement.
-    autocmd BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
+    au BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
 
     " Sets indentation for other files
-    autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-    autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
-    autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
-    autocmd FileType python setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
+    au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+    au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
+    au FileType python setlocal ts=2 sts=2 sw=2 expandtab
 
     " Set local working directory to current buffer file's directory
-    autocmd bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
+    au bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
 
     " Auto source .vimrc file when saved
-    autocmd bufwritepost .vimrc source $MYVIMRC
+    au bufwritepost .vimrc source $MYVIMRC
 
     " Run go fmt on .go file save
-    autocmd bufwritepre *.go Fmt
+    au bufwritepre *.go Fmt
 
     " Enable wrap and linebreak in txt files
-    autocmd BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
+    au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
+
+    au BufRead,BufNewFile {Gemfile,Vagrantfile} set ft=ruby
   augroup END
 endif
 
