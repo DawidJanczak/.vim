@@ -386,3 +386,4 @@ endif
 " Create undo file during file edition so that it is possible to undo actions even after reopening the file
 " Annoying...
 " set undofile
+" foo
