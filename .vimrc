@@ -275,8 +275,9 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 nnoremap <leader>a :Ack! -k <cword><space>
 nnoremap <leader><s-a> :Ack! -k<space>
 
-" Leader s to switch between source/header files (c++)
-nmap ,s :call SwitchSourceHeader()<cr>
+" SplitJoin commands
+nmap <Leader>j :SplitjoinJoin<cr>
+nmap <Leader>s :SplitjoinSplit<cr>
 
 " Leader g to search all open buffers
 nnoremap <leader>g :bgrep
