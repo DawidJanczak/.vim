@@ -265,6 +265,9 @@ nnoremap <leader>o o<esc>
 " Put ruby shebang in the beginning of the file
 nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 
+" binding.pry
+nnoremap <leader>pry Orequire 'pry'; binding.pry<cr><esc>
+
 " ==================================================
 " ===== Plugin settings ============================
 " ==================================================
@@ -345,7 +348,7 @@ if has("autocmd")
     " Enable wrap and linebreak in txt files
     au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
 
-    au BufRead,BufNewFile {Gemfile,Vagrantfile} set ft=ruby
+    au BufRead,BufNewFile {Gemfile,Guardfile,Vagrantfile} set ft=ruby
   augroup END
 endif
 
