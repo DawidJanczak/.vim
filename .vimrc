@@ -197,7 +197,7 @@ nnoremap <leader><space> :noh<cr>
 set wrap
 
 " Ignore some directories
-set wildignore+=*/tmp/*
+set wildignore+=*/tmp/*,*/node_modules/*
 
 " ==================================================
 " ===== Misc key mappings ==========================
