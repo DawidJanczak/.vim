@@ -309,6 +309,7 @@ nnoremap <leader>u :GundoToggle<CR>
 " Options for syntastic
 let g:syntastic_coffee_coffeelint_args="--csv -f /home/janczak/dotfiles/.coffeelint.json"
 let g:syntastic_java_javac_classpath="~/git/sales/gwt/src:/opt/gwt/gwt-user.jar"
+let g:syntastic_javascript_checkers = ['eslint']
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
