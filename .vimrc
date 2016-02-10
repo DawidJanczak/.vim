@@ -47,10 +47,10 @@ set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
 
 " Vundle settings and bundles
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'mileszs/ack.vim.git'
 Plugin 'jeetsukumaran/vim-buffergator.git'
 Plugin 'vim-scripts/IndexedSearch.git'
@@ -74,9 +74,12 @@ Plugin 'tpope/vim-ragtag.git'
 Plugin 'juvenn/mustache.vim.git'
 Plugin 'puppetlabs/puppet-syntax-vim'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-repeat'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'tpope/vim-cucumber'
+Plugin 'mtscout6/vim-cjsx'
 
 call vundle#end()
 filetype plugin indent on
@@ -310,6 +313,8 @@ nnoremap <leader>u :GundoToggle<CR>
 let g:syntastic_coffee_coffeelint_args="--csv -f /home/janczak/dotfiles/.coffeelint.json"
 let g:syntastic_java_javac_classpath="~/git/sales/gwt/src:/opt/gwt/gwt-user.jar"
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_cucumber_checkers=[]
+"let g:syntastic_debug = 1
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
