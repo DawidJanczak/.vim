@@ -45,44 +45,42 @@ endif
 " Sets font for GVim
 set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
 
-" Vundle settings and bundles
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'mileszs/ack.vim.git'
-Plugin 'jeetsukumaran/vim-buffergator.git'
-Plugin 'vim-scripts/IndexedSearch.git'
-Plugin 'scrooloose/nerdcommenter.git'
-Plugin 'majutsushi/tagbar.git'
-Plugin 'tpope/vim-surround.git'
-Plugin 'sjl/gundo.vim.git'
-Plugin 'tpope/vim-endwise.git'
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'scrooloose/syntastic.git'
-Plugin 'roman/golden-ratio.git'
-Plugin 'vim-scripts/L9'
-Plugin 'altercation/vim-colors-solarized.git'
-Plugin 'godlygeek/tabular.git'
-Plugin 'mikbe/rspec.vim.git'
-Plugin 'tpope/vim-rails.git'
-Plugin 'tpope/vim-bundler.git'
-Plugin 'kchmck/vim-coffee-script.git'
-Plugin 'kien/ctrlp.vim.git'
-Plugin 'tpope/vim-ragtag.git'
-Plugin 'juvenn/mustache.vim.git'
-Plugin 'puppetlabs/puppet-syntax-vim'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-repeat'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'tpope/vim-cucumber'
-Plugin 'mtscout6/vim-cjsx'
+Plug 'mileszs/ack.vim'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'vim-scripts/IndexedSearch'
+Plug 'scrooloose/nerdcommenter'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-surround'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/syntastic'
+Plug 'roman/golden-ratio'
+Plug 'vim-scripts/L9'
+Plug 'altercation/vim-colors-solarized'
+Plug 'godlygeek/tabular'
+Plug 'mikbe/rspec.vim'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-ragtag'
+Plug 'juvenn/mustache.vim'
+Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-repeat'
+Plug 'suan/vim-instant-markdown'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-cucumber'
+Plug 'mtscout6/vim-cjsx'
+Plug 'elixir-lang/vim-elixir'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+" Plug '/usr/bin/fzf' | Plug 'junegunn/fzf.vim'
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 " Colorscheme used plus syntax highlighting
 syntax on
@@ -276,10 +274,11 @@ nnoremap <leader>pry Orequire 'pry'; binding.pry<cr><esc>
 " ==================================================
 "
 
-" Launch ack on current word with ,a.
-" Launch ack without argument with ,A.
-nnoremap <leader>a :Ack! -k <cword><space>
-nnoremap <leader><s-a> :Ack! -k<space>
+" Launch rg on current word with ,a.
+" Launch rg without argument with ,A.
+let g:ackprg = 'rg --vimgrep --no-heading'
+nnoremap <leader>a :Ack! <cword><space>
+nnoremap <leader><s-a> :Ack! <space>
 
 " SplitJoin commands
 nmap <Leader>j :SplitjoinJoin<cr>
@@ -310,15 +309,24 @@ let g:session_autoload='yes'
 nnoremap <leader>u :GundoToggle<CR>
 
 " Options for syntastic
-let g:syntastic_coffee_coffeelint_args="--csv -f /home/janczak/dotfiles/.coffeelint.json"
+let g:syntastic_coffee_coffeelint_args="--csv -f /home/gat/git/dotfiles/.coffeelint.json"
 let g:syntastic_java_javac_classpath="~/git/sales/gwt/src:/opt/gwt/gwt-user.jar"
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_filetype_map = { "rspec": "ruby" }
 let g:syntastic_cucumber_checkers=[]
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
 "let g:syntastic_debug = 1
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
 let g:airline_section_c='%{getcwd()}/%t'
+
+" Nerd commenter settings
+let g:NERDSpaceDelims = 1
+
+" FZF/rg
+" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " ==================================================
 " ===== Auto commands ==============================
