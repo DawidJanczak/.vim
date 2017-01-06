@@ -78,7 +78,6 @@ Plug 'mtscout6/vim-cjsx'
 Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-" Plug '/usr/bin/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -162,6 +161,9 @@ set directory=~/tmp//
 " Configure tags location
 set tags+=./tags,tags;
 set tags+=./gems.tags,gems.tags;
+
+" lcd to current file's directory
+set autochdir
 
 " ==================================================
 " ===== Search/replace section =====================
@@ -269,6 +271,13 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 " binding.pry
 nnoremap <leader>pry Orequire 'pry'; binding.pry<cr><esc>
 
+" ctrl+p to open Files
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+command! ProjectFiles execute 'Files' s:find_git_root()
+nnoremap <silent> <C-p> :ProjectFiles <cr>
+
 " ==================================================
 " ===== Plugin settings ============================
 " ==================================================
@@ -350,9 +359,6 @@ if has("autocmd")
     au FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
     au FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
     au FileType python setlocal ts=2 sts=2 sw=2 expandtab
-
-    " Set local working directory to current buffer file's directory
-    au bufenter * if expand('%:p') !~ '://' | :lchdir %:p:h | endif
 
     " Auto source .vimrc file when saved
     au bufwritepost .vimrc source $MYVIMRC
