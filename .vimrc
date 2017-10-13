@@ -336,8 +336,8 @@ let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:elm_syntastic_show_warnings = 1
-let g:elm_format_autosave = 1
+let g:elm_syntastic_show_warnings = 0
+let g:elm_format_autosave = 0
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
@@ -365,7 +365,7 @@ if has("autocmd")
 
     " Sets indentation for other files
     au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-    au FileType elm setlocal ts=4 sts=4 sw=4 noexpandtab
+    au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
     au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
     au FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
@@ -378,6 +378,9 @@ if has("autocmd")
 
     " Run go fmt on .go file save
     au bufwritepre *.go :GoFmt
+
+    " Run elm format on .elm file save
+    au bufwritepre *.elm :ElmFormat
 
     " Enable wrap and linebreak in txt files
     au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
