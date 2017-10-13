@@ -63,7 +63,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'mikbe/rspec.vim'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-ragtag'
 Plug 'juvenn/mustache.vim'
@@ -78,6 +77,8 @@ Plug 'mtscout6/vim-cjsx'
 Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'elmcast/elm-vim'
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -271,6 +272,12 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 " binding.pry
 nnoremap <leader>pry Orequire 'pry'; binding.pry<cr><esc>
 
+" Add frozen string macro to Ruby file
+nnoremap <leader>froz I# frozen_string_literal: true<cr><cr>
+
+" Start of RSpec test
+nnoremap <leader>rsp I# frozen_string_literal: true<cr><cr>require 'rails_helper'<cr><cr>RSpec.describe
+
 " ctrl+p to open Files
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -318,6 +325,8 @@ let g:session_autoload='yes'
 nnoremap <leader>u :GundoToggle<CR>
 
 " Options for syntastic
+let g:ruby_path = []
+let g:syntastic_ruby_jruby_exec = []
 let g:syntastic_coffee_coffeelint_args="--csv -f /home/gat/git/dotfiles/.coffeelint.json"
 let g:syntastic_java_javac_classpath="~/git/sales/gwt/src:/opt/gwt/gwt-user.jar"
 let g:syntastic_javascript_checkers = ['eslint']
@@ -325,7 +334,10 @@ let g:syntastic_filetype_map = { "rspec": "ruby" }
 let g:syntastic_cucumber_checkers=[]
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
-"let g:syntastic_debug = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
+let g:elm_format_autosave = 1
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
@@ -353,6 +365,7 @@ if has("autocmd")
 
     " Sets indentation for other files
     au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
+    au FileType elm setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
     au FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
@@ -364,7 +377,7 @@ if has("autocmd")
     au bufwritepost .vimrc source $MYVIMRC
 
     " Run go fmt on .go file save
-    au bufwritepre *.go Fmt
+    au bufwritepre *.go :GoFmt
 
     " Enable wrap and linebreak in txt files
     au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
