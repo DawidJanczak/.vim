@@ -334,8 +334,6 @@ let g:syntastic_filetype_map = { "rspec": "ruby" }
 let g:syntastic_cucumber_checkers=[]
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 0
 let g:elm_format_autosave = 0
 
