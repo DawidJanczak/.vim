@@ -273,7 +273,7 @@ nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
 nnoremap <leader>pry Orequire 'pry'; binding.pry<cr><esc>
 
 " Add frozen string macro to Ruby file
-nnoremap <leader>froz I# frozen_string_literal: true<cr><cr>
+nnoremap <leader>froz I# frozen_string_literal: true<cr><cr>class
 
 " Start of RSpec test
 nnoremap <leader>rsp I# frozen_string_literal: true<cr><cr>require 'rails_helper'<cr><cr>RSpec.describe
