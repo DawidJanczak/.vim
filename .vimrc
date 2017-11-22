@@ -334,6 +334,8 @@ let g:syntastic_filetype_map = { "rspec": "ruby" }
 let g:syntastic_cucumber_checkers=[]
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
+let g:syntastic_eruby_ruby_quiet_messages =
+    \ {'regex': 'possibly useless use of a variable in void context'}
 let g:elm_syntastic_show_warnings = 0
 let g:elm_format_autosave = 0
 
