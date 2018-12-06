@@ -42,12 +42,8 @@ endif
 " ===== General options ============================
 " ==================================================
 
-" Sets font for GVim
-set gfn=DejaVu_Sans_Mono:h12:cEASTEUROPE
-
 call plug#begin('~/.vim/plugged')
 
-Plug 'mileszs/ack.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vim-scripts/IndexedSearch'
 Plug 'scrooloose/nerdcommenter'
@@ -61,13 +57,13 @@ Plug 'roman/golden-ratio'
 Plug 'vim-scripts/L9'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
-Plug 'mikbe/rspec.vim'
+Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-rails'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-ragtag'
 Plug 'juvenn/mustache.vim'
 Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-repeat'
 Plug 'suan/vim-instant-markdown'
@@ -79,6 +75,9 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'elmcast/elm-vim'
 Plug 'fatih/vim-go'
+Plug 'KabbAmine/zeavim.vim'
+Plug 'jremmen/vim-ripgrep'
+Plug 'slim-template/vim-slim'
 
 call plug#end()
 
@@ -162,9 +161,6 @@ set directory=~/tmp//
 " Configure tags location
 set tags+=./tags,tags;
 set tags+=./gems.tags,gems.tags;
-
-" lcd to current file's directory
-set autochdir
 
 " ==================================================
 " ===== Search/replace section =====================
@@ -292,9 +288,9 @@ nnoremap <silent> <C-p> :ProjectFiles <cr>
 
 " Launch rg on current word with ,a.
 " Launch rg without argument with ,A.
-let g:ackprg = 'rg --vimgrep --no-heading'
-nnoremap <leader>a :Ack! <cword><space>
-nnoremap <leader><s-a> :Ack! <space>
+let g:rg_derive_root='true'
+nnoremap <leader>a :Rg <cword><space>
+nnoremap <leader><s-a> :Rg <space>
 
 " SplitJoin commands
 nmap <Leader>j :SplitjoinJoin<cr>
@@ -335,12 +331,14 @@ let g:syntastic_cucumber_checkers=[]
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
 let g:syntastic_eruby_ruby_quiet_messages =
-    \ {'regex': 'possibly useless use of a variable in void context'}
+      \ {'regex': 'possibly useless use of a \w\+ in void context' }
+let g:syntastic_enable_highlighting = 0
 let g:elm_syntastic_show_warnings = 0
 let g:elm_format_autosave = 0
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
+let g:airline_powerline_fonts=1
 let g:airline_section_c='%{getcwd()}/%t'
 
 " Nerd commenter settings
@@ -357,11 +355,6 @@ if has("autocmd")
   augroup custom
     " Clear previous auto commands
     au!
-
-    " Set local working directory to current buffer file's directory
-    " Vim gets confused when switching to buffergator window as it wants to find
-    " [[buffergator file. Hence the conditional statement.
-    au BufEnter * if expand("%") !~ '[[.*' | silent! lcd %:p:h | endif
 
     " Sets indentation for other files
     au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
@@ -388,6 +381,15 @@ if has("autocmd")
     au BufRead,BufNewFile {Gemfile,Guardfile,Vagrantfile} set ft=ruby
   augroup END
 endif
+
+" The great .vimrc rewrite of 2018
+
+" List open buffers and await input
+nnoremap <leader>l :ls<CR>:b<space>
+
+" Set path to root directory and enable find shortcut
+set path=.,**
+nnoremap <leader>f :find *
 
 " ==================================================
 " ===== Disabled commands ==========================
