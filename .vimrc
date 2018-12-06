@@ -21,21 +21,17 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-rails'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-ragtag'
-Plug 'juvenn/mustache.vim'
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-repeat'
 Plug 'suan/vim-instant-markdown'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'tpope/vim-cucumber'
 Plug 'mtscout6/vim-cjsx'
-Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'elmcast/elm-vim'
 Plug 'fatih/vim-go'
-Plug 'KabbAmine/zeavim.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'slim-template/vim-slim'
 
@@ -339,7 +335,9 @@ if has("autocmd")
   augroup END
 endif
 
-" The great .vimrc rewrite of 2018
+" =================================================
+" ====== The great .vimrc rewrite of 2018 ========
+" =================================================
 
 " List open buffers and await input
 nnoremap <leader>l :ls<CR>:b<space>
@@ -347,6 +345,9 @@ nnoremap <leader>l :ls<CR>:b<space>
 " Set path to root directory and enable find shortcut
 set path=.,**
 nnoremap <leader>f :find *
+
+set wildcharm=<C-z>
+nnoremap <leader>bf :buffer <C-z><S-Tab>
 
 " ==================================================
 " ===== Disabled commands ==========================
