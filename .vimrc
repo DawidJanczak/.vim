@@ -1,44 +1,4 @@
 " ==================================================
-" ===== Functions ==================================
-" ==================================================
-
-" Function used in MyTabLine that causes printing filename only
-if !exists("*MyTabLabel")
-  function MyTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    return fnamemodify(bufname(buflist[winnr - 1]), ":t")
-  endfunction
-endif
-
-" Show only filename, not the full file path, in tab header
-if !exists("*MyTabLine")
-  function MyTabLine()
-    let s = ''
-
-    for i in range(tabpagenr('$'))
-      if i + 1 == tabpagenr()
-        let s .= '%#TabLineSel#'
-      else
-        let s .= '%#TabLine#'
-      endif
-
-      let s .= '%' . (i + 1) . 'T'
-
-      let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-    endfor
-
-    let s .= '%#TabLineFill#%T'
-
-    if tabpagenr('$') > 1
-      let s .= '%=%#TabLine#%999Xclose'
-    endif
-
-    return s
-  endfunction
-endif
-
-" ==================================================
 " ===== General options ============================
 " ==================================================
 
@@ -143,9 +103,6 @@ set laststatus=2
 " Line numbers relative to current line
 set relativenumber
 set number
-
-" Show filename only in tabs
-set tabline=%!MyTabLine()
 
 " Map leader key to ','
 let mapleader = ","
