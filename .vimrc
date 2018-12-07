@@ -40,9 +40,6 @@ call plug#end()
 " Colorscheme used plus syntax highlighting
 syntax on
 set background=dark
-"colorscheme mustang
-" Solarized theme with transparent terminal support.
-let g:solarized_termtrans=1
 colorscheme solarized
 
 " Disabing modelines (security)
@@ -169,10 +166,6 @@ vnoremap <f1> <esc>
 " Use space to switch to previously edited buffer
 nnoremap <space> :b#<cr>
 
-" Mappings for easier tab navigating
-nnoremap <s-h> gT
-nnoremap <s-l> gt
-
 " Y to behave like D - yank till EOL
 nnoremap Y y$
 
@@ -297,9 +290,6 @@ let g:airline_section_c='%{getcwd()}/%t'
 " Nerd commenter settings
 let g:NERDSpaceDelims = 1
 
-" FZF/rg
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
@@ -314,8 +304,6 @@ if has("autocmd")
     au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
     au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
-    au FileType ttcn setlocal ts=4 sts=4 sw=4 expandtab
-    au FileType tcl setlocal ts=4 sts=4 sw=4 expandtab
     au FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
     au FileType python setlocal ts=2 sts=2 sw=2 expandtab
 
@@ -331,7 +319,7 @@ if has("autocmd")
     " Enable wrap and linebreak in txt files
     au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
 
-    au BufRead,BufNewFile {Gemfile,Guardfile,Vagrantfile} set ft=ruby
+    au BufRead,BufNewFile {Gemfile,Guardfile} set ft=ruby
   augroup END
 endif
 
