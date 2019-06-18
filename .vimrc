@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vim-scripts/IndexedSearch'
 Plug 'scrooloose/nerdcommenter'
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-surround'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-endwise'
@@ -34,6 +34,8 @@ Plug 'elmcast/elm-vim'
 Plug 'fatih/vim-go'
 Plug 'jremmen/vim-ripgrep'
 Plug 'slim-template/vim-slim'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 call plug#end()
 
@@ -147,7 +149,7 @@ nnoremap <leader><space> :noh<cr>
 set wrap
 
 " Ignore some directories
-set wildignore+=*/tmp/*,*/node_modules/*
+set wildignore+=*/tmp/*,*/node_modules/*,*.elmi,*.elmo
 
 " ==================================================
 " ===== Misc key mappings ==========================
@@ -285,7 +287,7 @@ let g:elm_format_autosave = 0
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
 let g:airline_powerline_fonts=1
-let g:airline_section_c='%{getcwd()}/%t'
+let g:airline_section_c='%F'
 
 " Nerd commenter settings
 let g:NERDSpaceDelims = 1
@@ -336,6 +338,9 @@ nnoremap <leader>f :find *
 
 set wildcharm=<C-z>
 nnoremap <leader>bf :buffer <C-z><S-Tab>
+
+" Remove tags from autocomplete
+set complete-=i
 
 " ==================================================
 " ===== Disabled commands ==========================
