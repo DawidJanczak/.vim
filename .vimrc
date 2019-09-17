@@ -12,7 +12,6 @@ Plug 'tpope/vim-surround'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/syntastic'
 Plug 'roman/golden-ratio'
 Plug 'vim-scripts/L9'
 Plug 'altercation/vim-colors-solarized'
@@ -36,6 +35,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'slim-template/vim-slim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -268,22 +268,6 @@ let g:session_autoload='yes'
 " Open GUndo with <leader>u
 nnoremap <leader>u :GundoToggle<CR>
 
-" Options for syntastic
-let g:ruby_path = []
-let g:syntastic_ruby_jruby_exec = []
-let g:syntastic_coffee_coffeelint_args="--csv -f /home/gat/git/dotfiles/.coffeelint.json"
-let g:syntastic_java_javac_classpath="~/git/sales/gwt/src:/opt/gwt/gwt-user.jar"
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_filetype_map = { "rspec": "ruby" }
-let g:syntastic_cucumber_checkers=[]
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:syntastic_ruby_rubocop_exec = '.bin/rubocop'
-let g:syntastic_eruby_ruby_quiet_messages =
-      \ {'regex': 'possibly useless use of a \w\+ in void context' }
-let g:syntastic_enable_highlighting = 0
-let g:elm_syntastic_show_warnings = 0
-let g:elm_format_autosave = 0
-
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
 let g:airline_powerline_fonts=1
@@ -291,6 +275,10 @@ let g:airline_section_c='%F'
 
 " Nerd commenter settings
 let g:NERDSpaceDelims = 1
+
+" Ale
+highlight ALEError ctermfg=DarkMagenta
+highlight ALEWarning ctermfg=DarkMagenta
 
 " ==================================================
 " ===== Auto commands ==============================
@@ -303,7 +291,7 @@ if has("autocmd")
 
     " Sets indentation for other files
     au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-    au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
+    " au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
     au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
     au FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
@@ -314,9 +302,6 @@ if has("autocmd")
 
     " Run go fmt on .go file save
     au bufwritepre *.go :GoFmt
-
-    " Run elm format on .elm file save
-    au bufwritepre *.elm :ElmFormat
 
     " Enable wrap and linebreak in txt files
     au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
