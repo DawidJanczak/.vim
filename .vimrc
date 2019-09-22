@@ -36,6 +36,8 @@ Plug 'slim-template/vim-slim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
@@ -210,18 +212,6 @@ nnoremap <C-tab> gT
 nnoremap <leader>o o<esc>
 nnoremap <leader>o o<esc>
 
-" Put ruby shebang in the beginning of the file
-nnoremap <leader>r ggO<esc>S#!/usr/bin/env ruby<cr><esc>^Dj
-
-" binding.pry
-nnoremap <leader>pry Orequire 'pry'; binding.pry<cr><esc>
-
-" Add frozen string macro to Ruby file
-nnoremap <leader>froz I# frozen_string_literal: true<cr><cr>class
-
-" Start of RSpec test
-nnoremap <leader>rsp I# frozen_string_literal: true<cr><cr>require 'rails_helper'<cr><cr>RSpec.describe
-
 " ctrl+p to open Files
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -280,6 +270,18 @@ let g:NERDSpaceDelims = 1
 highlight ALEError ctermfg=DarkMagenta
 highlight ALEWarning ctermfg=DarkMagenta
 
+" Coc
+let g:coc_global_extensions = ['coc-css', 'coc-ultisnips']
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Ultisnips
+let g:UltiSnipsSnippetDirectories = ['/home/gat/.config/coc/ultisnips', 'UltiSnips']
+let g:UltiSnipsExpandTrigger="<tab>"
+
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
@@ -291,7 +293,7 @@ if has("autocmd")
 
     " Sets indentation for other files
     au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
-    " au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
     au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
     au FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
