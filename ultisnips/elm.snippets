@@ -1,0 +1,82 @@
+snippet impa "Qualified import"
+import ${1:Json.Encode} as ${0:`!p snip.rv = t[1].split(".")[-1]`}
+endsnippet
+
+snippet foo "test"
+	BAR
+endsnippet
+
+snippet elm_init "New elm file"
+module $1 exposing (main)
+
+import Browser
+import Html
+    exposing
+        ( Html
+        , text
+        )
+
+
+
+-- Init
+
+
+main : Program Flags Model Msg
+main =
+    Browser.element
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = \_ -> Sub.none
+        }
+
+
+type alias Model =
+    {}
+
+
+type alias Flags =
+    {}
+
+
+type alias Msg =
+    Never
+
+
+init : Flags -> ( Model, Cmd Msg )
+init _ =
+    ( {}, Cmd.none )
+
+
+
+-- Update
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update _ model =
+    ( model, Cmd.none )
+
+
+
+-- View
+
+
+view : Model -> Html Msg
+view _ =
+    text ""
+endsnippet
+
+snippet impe "Import exposing"
+import $1 exposing ($2)
+endsnippet
+
+snippet ta "Type alias"
+type alias $1 =
+	{}
+endsnippet
+
+snippet fun "Function"
+$1 : $2 -> $3
+$1 `!p snip.rv = t[2].lower() ` =
+	$0
+endsnippet

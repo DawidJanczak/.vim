@@ -279,7 +279,7 @@ nmap <silent> gr <Plug>(coc-references)
 imap <C-l> <Plug>(coc-snippets-expand)
 
 " Ultisnips
-let g:UltiSnipsSnippetDirectories = ['/home/gat/.config/coc/ultisnips', 'UltiSnips']
+let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips', 'UltiSnips']
 let g:UltiSnipsExpandTrigger="<tab>"
 
 " ==================================================
