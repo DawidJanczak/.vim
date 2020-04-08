@@ -29,3 +29,12 @@ snippet t "Insert HTML tag" b
 	$0
 </${1/(\w+).*/$1/}>
 endsnippet
+
+snippet else "Insert else block" b
+<% else %>
+	$0
+endsnippet
+
+snippet pry "binding.pry" b
+<% binding.pry %>
+endsnippet

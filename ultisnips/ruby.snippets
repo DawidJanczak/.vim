@@ -1,38 +1,3 @@
-# A valid snippet should starts with:
-#
-#		snippet trigger_word [ "description" [ options ] ]
-#
-# and end with:
-#
-#		endsnippet
-#
-# Snippet options:
-#
-#		b - Beginning of line.
-#		i - In-word expansion.
-#		w - Word boundary.
-#		r - Regular expression
-#		e - Custom context snippet
-#		A - Snippet will be triggered automatically, when condition matches.
-#
-# Basic example:
-#
-#		snippet emitter "emitter properties" b
-#		private readonly ${1} = new Emitter<$2>()
-#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
-#		endsnippet
-#
-# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-
-snippet rspec "Initial setup of RSpec spec" b
-# frozen_string_literal: true
-
-require 'rails_helper'
-
-RSpec.describe $1 do
-end
-endsnippet
-
 snippet froz "Frozen string literal" b
 # frozen_string_literal: true
 
@@ -41,4 +6,13 @@ endsnippet
 
 snippet todo "Ruby TODO" b
 # TODO: $1 [Dawid, `date -I`]
+endsnippet
+
+snippet pry "Insert pry binding"
+require 'pry'; binding.pry
+endsnippet
+
+snippet attr "Dry struct attribute"
+attribute :$1, Types::Strict::String
+$0
 endsnippet

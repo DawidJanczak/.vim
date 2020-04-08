@@ -38,6 +38,8 @@ Plug 'Quramy/tsuquyomi'
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'SirVer/ultisnips'
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 
 call plug#end()
 
@@ -115,6 +117,17 @@ set directory=~/tmp//
 " Configure tags location
 set tags+=./tags,tags;
 set tags+=./gems.tags,gems.tags;
+
+" Settings below taken from https://github.com/neoclide/coc.nvim#example-vim-configuration
+
+" Increase cmd height
+set cmdheight=2
+
+" Update swap more often
+set updatetime=300
+
+" Don't show ins-completion-menu
+set shortmess+=c
 
 " ==================================================
 " ===== Search/replace section =====================
@@ -270,17 +283,60 @@ let g:NERDSpaceDelims = 1
 highlight ALEError ctermfg=DarkMagenta
 highlight ALEWarning ctermfg=DarkMagenta
 
+let g:ale_linters = { 'python': [] }
+
+" Ultisnips
+let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips', 'UltiSnips']
+
 " Coc
-let g:coc_global_extensions = ['coc-css', 'coc-ultisnips']
+let g:coc_global_extensions = [
+  \ 'coc-css',
+  \ 'coc-ultisnips',
+  \ 'coc-prettier',
+  \ 'coc-eslint',
+  \ 'coc-elixir'
+\]
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-imap <C-l> <Plug>(coc-snippets-expand)
 
-" Ultisnips
-let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips', 'UltiSnips']
-let g:UltiSnipsExpandTrigger="<tab>"
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " ==================================================
 " ===== Auto commands ==============================

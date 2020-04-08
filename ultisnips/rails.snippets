@@ -4,20 +4,20 @@ snippet rspec "Initial setup of RSpec spec" b
 require 'rails_helper'
 
 RSpec.describe $1 do
+	$0
 end
 endsnippet
 
-snippet froz "Frozen string literal" b
-# frozen_string_literal: true
-
-
+snippet fail "Dry validation failure" b
+expect(result).to be_failure
+expect(result.errors.to_h).to eq($1)
 endsnippet
 
-snippet todo "Ruby TODO" b
-# TODO: $1 [Dawid, `date -I`]
+snippet succ "Dry validation success" b
+expect(result).to be_success
+expect(result.to_h).to eq($1)
 endsnippet
 
-snippet pry "Insert pry binding"
-binding.pry
-
+snippet wrap_hash "Wrap in a hash"
+$1: { ${VISUAL} }
 endsnippet
