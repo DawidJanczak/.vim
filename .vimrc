@@ -35,18 +35,27 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'slim-template/vim-slim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'SirVer/ultisnips'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
+" Plug 'doums/coBra'
+Plug 'sheerun/vim-polyglot'
+Plug 'cocopon/iceberg.vim'
+" Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-abolish'
+Plug 'ap/vim-css-color'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-liquid'
 
 call plug#end()
 
 " Colorscheme used plus syntax highlighting
 syntax on
 set background=dark
-colorscheme solarized
+colorscheme iceberg
 
 " Disabing modelines (security)
 set nomodeline
@@ -166,6 +175,9 @@ set wrap
 " Ignore some directories
 set wildignore+=*/tmp/*,*/node_modules/*,*.elmi,*.elmo
 
+" Disable screen blinking
+set t_vb=
+
 " ==================================================
 " ===== Misc key mappings ==========================
 " ==================================================
@@ -194,6 +206,13 @@ command! W update
 
 " Map :Q to :q
 map Q <Nop>
+
+" Find and replace where . will repeat substitution
+nnoremap <leader>x *``cgn
+
+" Auto close {
+inoremap {{ {{<space><space>}}<left><left><left>
+inoremap { {<space><space>}<left><left>
 
 " ==================================================
 " ===== Leader commands ============================
@@ -246,6 +265,8 @@ nnoremap <leader><s-a> :Rg <space>
 " SplitJoin commands
 nmap <Leader>j :SplitjoinJoin<cr>
 nmap <Leader>s :SplitjoinSplit<cr>
+let g:splitjoin_ruby_curly_braces = 0
+let g:splitjoin_ruby_hanging_args = 0
 
 " Leader g to search all open buffers
 nnoremap <leader>g :bgrep
@@ -288,13 +309,17 @@ let g:ale_linters = { 'python': [] }
 " Ultisnips
 let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips', 'UltiSnips']
 
+" FZF
+" let $FZF_DEFAULT_COMMAND = "rg -n ^"
+
 " Coc
 let g:coc_global_extensions = [
-  \ 'coc-css',
   \ 'coc-ultisnips',
   \ 'coc-prettier',
   \ 'coc-eslint',
-  \ 'coc-elixir'
+  \ 'coc-elixir',
+  \ 'coc-solargraph',
+  \ 'coc-stylelintplus'
 \]
 
 " Use tab for trigger completion with characters ahead and navigate.

@@ -4,6 +4,16 @@ snippet froz "Frozen string literal" b
 
 endsnippet
 
+snippet rspec "Initial setup of RSpec spec" b
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+RSpec.describe $1 do
+	$0
+end
+endsnippet
+
 snippet todo "Ruby TODO" b
 # TODO: $1 [Dawid, `date -I`]
 endsnippet
@@ -13,6 +23,11 @@ require 'pry'; binding.pry
 endsnippet
 
 snippet attr "Dry struct attribute"
-attribute :$1, Types::Strict::String
+attribute :$1, Types::String
+$0
+endsnippet
+
+snippet allow "RSpec allow"
+allow($1).to receive(:$2).and_return($3)
 $0
 endsnippet

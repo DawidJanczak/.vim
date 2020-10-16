@@ -1,0 +1,14 @@
+{
+  "solargraph.formatting": "true",
+  "solargraph.diagnostics": "true",
+  "stylelintplus.configOverrides": {
+    "extends": "/usr/lib/node_modules/stylelint-config-standard/"
+  },
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"]
+    }
+  }
+}
