@@ -10,5 +10,7 @@
       "filetypes": ["elm"],
       "rootPatterns": ["elm.json"]
     }
-  }
+  },
+  "eslint.workingDirectories": [{ "mode": "location" }],
+  "eslint.debug": true
 }

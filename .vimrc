@@ -8,10 +8,10 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vim-scripts/IndexedSearch'
 Plug 'scrooloose/nerdcommenter'
 " Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-surround'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'roman/golden-ratio'
 Plug 'vim-scripts/L9'
 Plug 'altercation/vim-colors-solarized'
@@ -23,7 +23,6 @@ Plug 'tpope/vim-ragtag'
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-repeat'
 Plug 'suan/vim-instant-markdown'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mtscout6/vim-cjsx'
@@ -49,6 +48,11 @@ Plug 'ap/vim-css-color'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-liquid'
+Plug 'machakann/vim-sandwich'
+Plug 'alvan/vim-closetag'
+Plug 'delphinus/vim-firestore'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'adelarsq/vim-matchit'
 
 call plug#end()
 
@@ -63,6 +67,7 @@ set nomodeline
 " Tabs mapped to 2 space characters (Ruby default)
 set tabstop=2
 set shiftwidth=2
+set shiftround " Round the >> indentation to shiftwidth characters
 set softtabstop=2
 set expandtab
 
@@ -126,6 +131,9 @@ set directory=~/tmp//
 " Configure tags location
 set tags+=./tags,tags;
 set tags+=./gems.tags,gems.tags;
+
+" Remove octal from number formats so that incrementing 07 works as expected.
+set nrformats-=octal
 
 " Settings below taken from https://github.com/neoclide/coc.nvim#example-vim-configuration
 
@@ -209,10 +217,6 @@ map Q <Nop>
 
 " Find and replace where . will repeat substitution
 nnoremap <leader>x *``cgn
-
-" Auto close {
-inoremap {{ {{<space><space>}}<left><left><left>
-inoremap { {<space><space>}<left><left>
 
 " ==================================================
 " ===== Leader commands ============================
@@ -319,7 +323,8 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-elixir',
   \ 'coc-solargraph',
-  \ 'coc-stylelintplus'
+  \ 'coc-stylelintplus',
+  \ 'coc-tsserver'
 \]
 
 " Use tab for trigger completion with characters ahead and navigate.
