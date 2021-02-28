@@ -31,3 +31,21 @@ snippet allow "RSpec allow"
 allow($1).to receive(:$2).and_return($3)
 $0
 endsnippet
+
+snippet desc "RSpec describe"
+describe '$1' do
+	it '$2' do
+		$3
+	end
+end
+endsnippet
+
+snippet descCont "RSpec describe + context"
+describe '$1' do
+	context '$2' do
+		it '$3' do
+			$4
+		end
+	end
+end
+endsnippet
