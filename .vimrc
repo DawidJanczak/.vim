@@ -18,6 +18,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-ragtag'
 Plug 'puppetlabs/puppet-syntax-vim'
@@ -55,6 +57,9 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'adelarsq/vim-matchit'
 
 call plug#end()
+
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " Colorscheme used plus syntax highlighting
 syntax on
@@ -239,8 +244,8 @@ nnoremap <leader>w <c-w>v<c-w>l
 
 " Mappings for switching active split window
 nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 nnoremap <C-tab> gT
 
@@ -260,20 +265,17 @@ nnoremap <silent> <C-p> :ProjectFiles <cr>
 " ==================================================
 "
 
-" Launch rg on current word with ,a.
-" Launch rg without argument with ,A.
+" Launch rg on current word with ,g.
+" Launch rg without argument with ,G.
 let g:rg_derive_root='true'
-nnoremap <leader>a :Rg <cword><space>
-nnoremap <leader><s-a> :Rg <space>
+nnoremap <leader>g :Rg <cword><space><cr>
+nnoremap <leader><s-g> :Rg <space>
 
 " SplitJoin commands
 nmap <Leader>j :SplitjoinJoin<cr>
 nmap <Leader>s :SplitjoinSplit<cr>
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
-
-" Leader g to search all open buffers
-nnoremap <leader>g :bgrep
 
 " Shortcut for tagbar plugin
 nnoremap <leader>tt :TagbarToggle<cr>
@@ -311,7 +313,7 @@ highlight ALEWarning ctermfg=DarkMagenta
 let g:ale_linters = { 'python': [] }
 
 " Ultisnips
-let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips', 'UltiSnips']
+let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips']
 
 " FZF
 " let $FZF_DEFAULT_COMMAND = "rg -n ^"
@@ -407,7 +409,7 @@ nnoremap <leader>l :ls<CR>:b<space>
 
 " Set path to root directory and enable find shortcut
 set path=.,**
-nnoremap <leader>f :find *
+" nnoremap <leader>f :find *
 
 set wildcharm=<C-z>
 nnoremap <leader>bf :buffer <C-z><S-Tab>
