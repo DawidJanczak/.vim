@@ -1,6 +1,7 @@
 {
-  "solargraph.formatting": "true",
+  "solargraph.autoformat": "true",
   "solargraph.diagnostics": "true",
+  "solargraph.formatting": "true",
   "stylelintplus.configOverrides": {
     "extends": "/usr/lib/node_modules/stylelint-config-standard/"
   },
