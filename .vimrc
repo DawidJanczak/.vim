@@ -4,48 +4,44 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'adelarsq/vim-matchit'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'ap/vim-css-color'
+Plug 'cocopon/iceberg.vim'
+Plug 'delphinus/vim-firestore'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'jeetsukumaran/vim-buffergator'
+Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'machakann/vim-sandwich'
+Plug 'mattn/emmet-vim'
+Plug 'mtscout6/vim-cjsx'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'simnalamburt/vim-mundo'
-
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-ragtag'
-Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'tpope/vim-rake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'mtscout6/vim-cjsx'
-Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
-Plug 'leafgarland/typescript-vim'
 " Plug 'Quramy/tsuquyomi'
 " Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'SirVer/ultisnips'
 " Plug 'doums/coBra'
 " Plug 'sheerun/vim-polyglot'
-Plug 'cocopon/iceberg.vim'
 " Plug 'morhetz/gruvbox'
-Plug 'tpope/vim-abolish'
-Plug 'ap/vim-css-color'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
-Plug 'mattn/emmet-vim'
-Plug 'machakann/vim-sandwich'
 " Plug 'alvan/vim-closetag'
-Plug 'delphinus/vim-firestore'
-Plug 'AndrewRadev/sideways.vim'
-Plug 'adelarsq/vim-matchit'
 " Plug 'jparise/vim-graphql'
 
 call plug#end()
-
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " Colorscheme used plus syntax highlighting
 syntax on
@@ -356,8 +352,15 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>a  <Plug>(coc-codeaction)
 nmap <leader>a  <Plug>(coc-codeaction)
 
+" Sideways
+
 nnoremap <leader>< :SidewaysLeft<cr>
 nnoremap <leader>> :SidewaysRight<cr>
+
+" UltiSnips
+
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " ==================================================
 " ===== Auto commands ==============================
