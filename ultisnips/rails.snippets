@@ -21,3 +21,10 @@ endsnippet
 snippet wrap_hash "Wrap in a hash"
 $1: { ${VISUAL} }
 endsnippet
+
+snippet new_model "ApplicationRecord model"
+# frozen_string_literal: true
+
+class $1 < ApplicationRecord
+end
+endsnippet

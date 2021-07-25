@@ -5,56 +5,42 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'jeetsukumaran/vim-buffergator'
-Plug 'vim-scripts/IndexedSearch'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'majutsushi/tagbar'
-Plug 'sjl/gundo.vim'
+Plug 'simnalamburt/vim-mundo'
+
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'roman/golden-ratio'
-Plug 'vim-scripts/L9'
-Plug 'altercation/vim-colors-solarized'
-Plug 'godlygeek/tabular'
-Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
-Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-ragtag'
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'suan/vim-instant-markdown'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mtscout6/vim-cjsx'
-Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'elmcast/elm-vim'
-Plug 'fatih/vim-go'
 Plug 'jremmen/vim-ripgrep'
-Plug 'slim-template/vim-slim'
 Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
+" Plug 'Quramy/tsuquyomi'
 " Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'SirVer/ultisnips'
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
 " Plug 'doums/coBra'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'cocopon/iceberg.vim'
 " Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-abolish'
 Plug 'ap/vim-css-color'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-liquid'
 Plug 'machakann/vim-sandwich'
-Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 Plug 'delphinus/vim-firestore'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'adelarsq/vim-matchit'
+" Plug 'jparise/vim-graphql'
 
 call plug#end()
 
@@ -257,7 +243,7 @@ nnoremap <leader>o o<esc>
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
-command! ProjectFiles execute 'Files' s:find_git_root()
+command! ProjectFiles execute 'GFiles' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles <cr>
 
 " ==================================================
@@ -295,8 +281,8 @@ vnoremap <leader>, :Tab /,\zs/l0r1<CR>
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 
-" Open GUndo with <leader>u
-nnoremap <leader>u :GundoToggle<CR>
+" Open MUndo with <leader>u
+nnoremap <leader>u :MundoToggle<CR>
 
 " Vim-Airline settings
 let g:airline_theme='bubblegum'
@@ -367,8 +353,11 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a  <Plug>(coc-codeaction)
+nmap <leader>a  <Plug>(coc-codeaction)
+
+nnoremap <leader>< :SidewaysLeft<cr>
+nnoremap <leader>> :SidewaysRight<cr>
 
 " ==================================================
 " ===== Auto commands ==============================
@@ -453,5 +442,5 @@ set complete-=i
 "map <leader>r :NERDTreeFind<cr>
 
 " Create undo file during file edition so that it is possible to undo actions even after reopening the file
-" Annoying...
-" set undofile
+set undofile
+set undodir=~/.vim/undo

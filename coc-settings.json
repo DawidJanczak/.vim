@@ -1,4 +1,5 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["ruby"],
   "solargraph.autoformat": "true",
   "solargraph.diagnostics": "true",
   "solargraph.formatting": "true",
