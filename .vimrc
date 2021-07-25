@@ -101,23 +101,17 @@ set backspace=indent,eol,start
 set laststatus=2
 
 " Line numbers relative to current line
-set relativenumber
-set number
+set relativenumber number
 
 " Map leader key to ','
 let mapleader = ","
-nmap \ ,
 
 " Yanking and cutting to * registry
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " Save swap files elsewhere
-set backupdir=~/tmp//
-set directory=~/tmp//
-
-" Configure tags location
-set tags+=./tags,tags;
-set tags+=./gems.tags,gems.tags;
+set backupdir=~/tmp/
+set directory=~/tmp/
 
 " Remove octal from number formats so that incrementing 07 works as expected.
 set nrformats-=octal
@@ -132,6 +126,13 @@ set updatetime=300
 
 " Don't show ins-completion-menu
 set shortmess+=c
+
+" Set path to root directory and enable find shortcut
+set path=.,**
+
+" Create undo file during file edition so that it is possible to undo actions even after reopening the file
+set undofile
+set undodir=~/.vim/undo
 
 " ==================================================
 " ===== Search/replace section =====================
@@ -202,9 +203,6 @@ command! W update
 " Map :Q to :q
 map Q <Nop>
 
-" Find and replace where . will repeat substitution
-nnoremap <leader>x *``cgn
-
 " ==================================================
 " ===== Leader commands ============================
 " ==================================================
@@ -212,35 +210,29 @@ nnoremap <leader>x *``cgn
 " Leader w removes all trailing spaces in a file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 
-" Folding tags
-nnoremap <leader>ft vatzf
-
 " Open .vimrc in splitted window
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
 
 " Go from insert mode to normal mode with jj
 inoremap jj <esc>
 
-" Open a new vertically split window and move to it
-nnoremap <leader>w <c-w>v<c-w>l
-
 " Mappings for switching active split window
 nnoremap <c-h> <c-w>h
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
-nnoremap <C-tab> gT
 
 " Mappings for inserting a line before/after current one without going into insert mode and without going to new line.
 nnoremap <leader>o o<esc>
-nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
 
-" ctrl+p to open Files
+" ctrl+p to open GFiles from fzf
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 command! ProjectFiles execute 'GFiles' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles <cr>
+
+" List open buffers and await input
+nnoremap <leader>l :ls<CR>:b<space>
 
 " ==================================================
 " ===== Plugin settings ============================
@@ -251,16 +243,13 @@ nnoremap <silent> <C-p> :ProjectFiles <cr>
 " Launch rg without argument with ,G.
 let g:rg_derive_root='true'
 nnoremap <leader>g :Rg <cword><space><cr>
-nnoremap <leader><s-g> :Rg <space>
+nnoremap <leader><s-g> :Rg<space>
 
 " SplitJoin commands
 nmap <Leader>j :SplitjoinJoin<cr>
 nmap <Leader>s :SplitjoinSplit<cr>
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
-
-" Shortcut for tagbar plugin
-nnoremap <leader>tt :TagbarToggle<cr>
 
 " Options for buffergator:
 " - open buffergator in the bottom
@@ -269,13 +258,6 @@ nnoremap <leader>tt :TagbarToggle<cr>
 let g:buffergator_viewport_split_policy="b"
 let g:buffergator_split_size=15
 let g:buffergator_sort_regime="extension"
-
-" Leader comma to align text with commas
-vnoremap <leader>, :Tab /,\zs/l0r1<CR>
-
-" Auto save and auto reload sessions
-let g:session_autosave='yes'
-let g:session_autoload='yes'
 
 " Open MUndo with <leader>u
 nnoremap <leader>u :MundoToggle<CR>
@@ -288,17 +270,8 @@ let g:airline_section_c='%F'
 " Nerd commenter settings
 let g:NERDSpaceDelims = 1
 
-" Ale
-highlight ALEError ctermfg=DarkMagenta
-highlight ALEWarning ctermfg=DarkMagenta
-
-let g:ale_linters = { 'python': [] }
-
 " Ultisnips
 let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips']
-
-" FZF
-" let $FZF_DEFAULT_COMMAND = "rg -n ^"
 
 " Coc
 let g:coc_global_extensions = [
@@ -311,19 +284,6 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver'
 \]
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -333,17 +293,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -372,9 +321,7 @@ if has("autocmd")
     au!
 
     " Sets indentation for other files
-    au FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType elm setlocal ts=4 sts=4 sw=4 expandtab
-    au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
     au FileType lua setlocal ts=4 sts=4 sw=4 expandtab
     au FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
     au FileType python setlocal ts=2 sts=2 sw=2 expandtab
@@ -391,59 +338,3 @@ if has("autocmd")
     au BufRead,BufNewFile {Gemfile,Guardfile} set ft=ruby
   augroup END
 endif
-
-" =================================================
-" ====== The great .vimrc rewrite of 2018 ========
-" =================================================
-
-" List open buffers and await input
-nnoremap <leader>l :ls<CR>:b<space>
-
-" Set path to root directory and enable find shortcut
-set path=.,**
-" nnoremap <leader>f :find *
-
-set wildcharm=<C-z>
-nnoremap <leader>bf :buffer <C-z><S-Tab>
-
-" Remove tags from autocomplete
-set complete-=i
-
-" ==================================================
-" ===== Disabled commands ==========================
-" ==================================================
-"
-" This section contains commands which are not used anymore, but might come in
-" handy in the future.
-" Description should contain reason as to why it is disabled in addition to
-" specyfying what the command does.
-
-" When firing Vim move cursor from any plugin to the main window
-" Not used as Vim is only opened with one window now
-" autocmd VimEnter * wincmd p
-
-" This mapping breaks ctrl-i combination. Disabled until figured out if it's
-" possible to map the two keys independently
-"nnoremap <tab> %
-"vnoremap <tab> %
-
-" Color column on given column number
-" DISABLED - ugly :)
-" set colorcolumn=85
-
-" Save on losing focus
-" Not really needed now
-" :au FocusLost * :w
-
-" Fire up NERDTree faster
-" Not using NERDTree anymore
-"let NERDTreeShowHidden=1
-"nnoremap <leader>nt :NERDTree<cr>
-
-" Find currently opened file in NERDTree faster
-" Not using NERDTree anymore
-"map <leader>r :NERDTreeFind<cr>
-
-" Create undo file during file edition so that it is possible to undo actions even after reopening the file
-set undofile
-set undodir=~/.vim/undo
