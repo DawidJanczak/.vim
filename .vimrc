@@ -18,7 +18,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'machakann/vim-sandwich'
 Plug 'mattn/emmet-vim'
 Plug 'mtscout6/vim-cjsx'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'neovim/nvim-lspconfig'
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'simnalamburt/vim-mundo'
@@ -273,34 +273,6 @@ let g:NERDSpaceDelims = 1
 " Ultisnips
 let g:UltiSnipsSnippetDirectories = ['/home/gat/.vim/ultisnips']
 
-" Coc
-let g:coc_global_extensions = [
-  \ 'coc-ultisnips',
-  \ 'coc-prettier',
-  \ 'coc-eslint',
-  \ 'coc-elixir',
-  \ 'coc-solargraph',
-  \ 'coc-stylelintplus',
-  \ 'coc-tsserver'
-\]
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction)
-nmap <leader>a  <Plug>(coc-codeaction)
-
 " Sideways
 
 nnoremap <leader>< :SidewaysLeft<cr>
@@ -337,4 +309,14 @@ if has("autocmd")
 
     au BufRead,BufNewFile {Gemfile,Guardfile} set ft=ruby
   augroup END
+
+  " Return to last edit position when opening files (You want this!)
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+
+  " Autoformat Ruby files using NVim's LSP
+  autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 1000)
+  autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync(nil, 1000)
 endif

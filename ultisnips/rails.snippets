@@ -28,3 +28,9 @@ snippet new_model "ApplicationRecord model"
 class $1 < ApplicationRecord
 end
 endsnippet
+
+snippet raw_sql "Raw SQL in Rails Migration"
+ActiveRecord::Base.connection.execute <<~SQL.squish
+	$1
+SQL
+endsnippet

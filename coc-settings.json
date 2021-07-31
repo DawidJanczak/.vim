@@ -1,5 +1,6 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["ruby"],
+  "coc.preferences.formatOnSaveFiletypes": ["elm", "ruby"],
+  "codeLens.enable": true,
   "solargraph.autoformat": "true",
   "solargraph.diagnostics": "true",
   "solargraph.formatting": "true",
