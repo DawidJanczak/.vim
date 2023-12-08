@@ -4,26 +4,37 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'adelarsq/vim-matchit'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'andymass/vim-matchup'
 Plug 'ap/vim-css-color'
 Plug 'cocopon/iceberg.vim'
 Plug 'delphinus/vim-firestore'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'LnL7/vim-nix'
 Plug 'machakann/vim-sandwich'
 Plug 'mattn/emmet-vim'
 Plug 'mtscout6/vim-cjsx'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'redhat-developer/yaml-language-server'
 Plug 'scrooloose/nerdcommenter'
 Plug 'simnalamburt/vim-mundo'
 Plug 'SirVer/ultisnips'
+Plug 'someone-stole-my-name/yaml-companion.nvim'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
@@ -33,23 +44,15 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'Quramy/tsuquyomi'
-" Plug 'dense-analysis/ale'
-" Plug 'doums/coBra'
-" Plug 'sheerun/vim-polyglot'
-" Plug 'morhetz/gruvbox'
-" Plug 'alvan/vim-closetag'
-" Plug 'jparise/vim-graphql'
+Plug 'yong1le/darkplus.nvim'
 
 call plug#end()
 
 " Colorscheme used plus syntax highlighting
 syntax on
 set background=dark
-colorscheme iceberg
-
-" Disabing modelines (security)
-set nomodeline
+set termguicolors
+colorscheme darkplus
 
 " Tabs mapped to 2 space characters (Ruby default)
 set tabstop=2
@@ -126,6 +129,9 @@ set updatetime=300
 
 " Don't show ins-completion-menu
 set shortmess+=c
+inoremap ,, <C-x><C-o>
+set completeopt-=preview
+"<C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ""<CR>
 
 " Set path to root directory and enable find shortcut
 set path=.,**
@@ -173,6 +179,9 @@ set wildignore+=*/tmp/*,*/node_modules/*,*.elmi,*.elmo
 
 " Disable screen blinking
 set t_vb=
+
+" Re-enable pasting with middle click on wayland
+set mouse=
 
 " ==================================================
 " ===== Misc key mappings ==========================
@@ -228,7 +237,7 @@ nnoremap <leader>O O<esc>
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
-command! ProjectFiles execute 'GFiles' s:find_git_root()
+command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles <cr>
 
 " List open buffers and await input
@@ -283,6 +292,15 @@ nnoremap <leader>> :SidewaysRight<cr>
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
+" vim-matchup
+
+let g:matchup_matchparen_offscreen = {}
+
+" Emmet vim
+" let g:user_emmet_settings = {
+    " " \  'format.forceIndentationForTags' : 'label'
+    " " \}
+
 " ==================================================
 " ===== Auto commands ==============================
 " ==================================================
@@ -301,9 +319,6 @@ if has("autocmd")
     " Auto source .vimrc file when saved
     au bufwritepost .vimrc source $MYVIMRC
 
-    " Run go fmt on .go file save
-    au bufwritepre *.go :GoFmt
-
     " Enable wrap and linebreak in txt files
     au BufRead,BufNewFile *.txt setlocal textwidth=80 linebreak
 
@@ -312,11 +327,12 @@ if has("autocmd")
 
   " Return to last edit position when opening files (You want this!)
   autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \ if expand('%:t') != 'COMMIT_EDITMSG' && line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |
         \ endif
 
   " Autoformat Ruby files using NVim's LSP
-  autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 1000)
-  autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync(nil, 1000)
+  autocmd BufWritePre *.rb lua vim.lsp.buf.format(nil, 1000)
+  autocmd BufWritePre *.elm lua vim.lsp.buf.format(nil, 1000)
+  autocmd BufWritePre *.go lua vim.lsp.buf.format(nil, 1000)
 endif

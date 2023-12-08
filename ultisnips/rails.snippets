@@ -8,16 +8,6 @@ RSpec.describe $1 do
 end
 endsnippet
 
-snippet fail "Dry validation failure" b
-expect(result).to be_failure
-expect(result.errors.to_h).to eq($1)
-endsnippet
-
-snippet succ "Dry validation success" b
-expect(result).to be_success
-expect(result.to_h).to eq($1)
-endsnippet
-
 snippet wrap_hash "Wrap in a hash"
 $1: { ${VISUAL} }
 endsnippet
