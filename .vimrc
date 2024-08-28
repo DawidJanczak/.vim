@@ -14,7 +14,6 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'jeetsukumaran/vim-buffergator'
-Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'LnL7/vim-nix'
@@ -45,14 +44,17 @@ Plug 'tpope/vim-rake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yong1le/darkplus.nvim'
+Plug 'sainnhe/everforest'
 
 call plug#end()
 
 " Colorscheme used plus syntax highlighting
 syntax on
-set background=dark
 set termguicolors
+set background=dark
 colorscheme darkplus
+" set background=light
+" colorscheme everforest
 
 " Tabs mapped to 2 space characters (Ruby default)
 set tabstop=2
@@ -246,13 +248,6 @@ nnoremap <leader>l :ls<CR>:b<space>
 " ==================================================
 " ===== Plugin settings ============================
 " ==================================================
-"
-
-" Launch rg on current word with ,g.
-" Launch rg without argument with ,G.
-let g:rg_derive_root='true'
-nnoremap <leader>g :Rg <cword><space><cr>
-nnoremap <leader><s-g> :Rg<space>
 
 " SplitJoin commands
 nmap <Leader>j :SplitjoinJoin<cr>
