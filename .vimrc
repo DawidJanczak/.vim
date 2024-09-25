@@ -32,6 +32,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'simnalamburt/vim-mundo'
 Plug 'SirVer/ultisnips'
 Plug 'someone-stole-my-name/yaml-companion.nvim'
+Plug 'stevearc/conform.nvim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -325,9 +326,4 @@ if has("autocmd")
         \ if expand('%:t') != 'COMMIT_EDITMSG' && line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |
         \ endif
-
-  " Autoformat Ruby files using NVim's LSP
-  autocmd BufWritePre *.rb lua vim.lsp.buf.format(nil, 1000)
-  autocmd BufWritePre *.elm lua vim.lsp.buf.format(nil, 1000)
-  autocmd BufWritePre *.go lua vim.lsp.buf.format(nil, 1000)
 endif
